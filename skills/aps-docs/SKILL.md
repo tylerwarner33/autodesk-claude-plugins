@@ -13,12 +13,13 @@ description: >-
   APS term means, or a link to the APS docs.
 compatibility: >-
   Needs Python 3.9 or later and internet access to developer.doc.autodesk.com and
-  developer.doc.config.autodesk.com. No other packages.
+  developer.doc.config.autodesk.com. No other packages. In claude.ai and Cowork,
+  needs code execution with network egress to these domains.
 allowed-tools: >-
   Bash(python *aps_docs.py*)
   Bash(python3 *aps_docs.py*)
 metadata:
-  version: "1.0.0"
+  version: "1.1.0"
   owner: "tylerwarner33"
   origin: "https://github.com/autodesk-platform-services/skills (skills/aps-docs-portal)"
 ---
@@ -32,6 +33,7 @@ python "${CLAUDE_SKILL_DIR}/scripts/aps_docs.py" <command> ...
 ```
 
 If `python` is not found, use `python3`.
+If `${CLAUDE_SKILL_DIR}` is not replaced by a path (ex. in a claude.ai chat), use the path of `scripts/aps_docs.py` relative to the folder of this `SKILL.md` in the code execution sandbox.
 
 Read the reference files only through the script (`sources`, `glossary`, `example`). Do not open the files in `references/` with the Read tool or a shell command: the skill folder can be outside the working folder, and a direct read can stop for approval.
 
@@ -115,7 +117,7 @@ For a full example of the method, run `python "${CLAUDE_SKILL_DIR}/scripts/aps_d
 | `No TOC for source ID` | The ID is wrong. Run the `sources` command. IDs are case-sensitive and include the version (`data_v2`, not `data`). |
 | `Page not found` | The docs were deployed again and the source path changed. Run `toc` again with `--refresh` to get the new path. |
 | `(guessed from the source path, not found in the TOC)` after a portal link | The page is not in the TOC that the script guessed. Add `--source-id <id>` to get the exact link, or say that the link is not verified. |
-| `Cannot reach` | There is no network access. Tell the user. Do not answer from memory as if from the docs. |
+| `Cannot reach` | There is no network access. Tell the user. In a claude.ai chat or in Cowork, tell the user to allow network egress to `developer.doc.autodesk.com` and `developer.doc.config.autodesk.com` in the code execution settings, then start a new chat. Do not answer from memory as if from the docs. |
 
 ## Notes
 

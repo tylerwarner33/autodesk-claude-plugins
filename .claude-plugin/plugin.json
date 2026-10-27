@@ -1,13 +1,13 @@
 {
   "name": "autodesk-skills",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "displayName": "Autodesk Skills",
   "description": "Skills for Autodesk Platform Services (APS) development.",
   "author": {
     "name": "tylerwarner33"
   },
-  "homepage": "https://github.com/tylerwarner33/claude-plugin",
-  "repository": "https://github.com/tylerwarner33/claude-plugin",
+  "homepage": "https://github.com/tylerwarner33/autodesk-claude-plugins",
+  "repository": "https://github.com/tylerwarner33/autodesk-claude-plugins",
   "license": "MIT",
   "keywords": ["autodesk", "aps", "skills"]
 }

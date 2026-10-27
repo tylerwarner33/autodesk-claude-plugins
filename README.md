@@ -1,27 +1,39 @@
-# claude-plugin
+# autodesk-claude-plugins
 
-Claude Code skills for Autodesk Platform Services (APS) development.
-This repository is a Claude Code plugin marketplace (`tylerwarner-plugins`) with one plugin (`autodesk-skills`), both at the repository root.
+Claude plugins for Autodesk development. The first plugin, `autodesk-skills`, has skills for Autodesk Platform Services (APS) development.
+This repository is a Claude plugin marketplace (`tylerwarner-autodesk`). Add it once to see each Autodesk plugin in it.
+The plugins work in Claude Code, in chat on claude.ai and in the Claude desktop app, and in Cowork.
 This is a personal project. It is not made, endorsed, or supported by Autodesk.
 Design: [Claude-Plugin-Distribution.md](Docs/Claude-Plugin-Distribution.md).
 
 ## Quick Start
 
+### claude.ai, the Claude desktop app, and Cowork
+
+1. Open **Customize > Plugins**, then select **Add > Add marketplace**.
+2. Enter `tylerwarner33/autodesk-claude-plugins`.
+3. Add the `autodesk-skills` plugin.
+4. For the `aps-docs` skill, turn on code execution and allow network egress to `developer.doc.autodesk.com` and `developer.doc.config.autodesk.com`.
+
+A plugin that you add to your account also syncs to Claude Code when Claude Code is signed in to the same account.
+
+### Claude Code
+
 Run these commands in a terminal.
 
 ```
-claude plugin marketplace add tylerwarner33/claude-plugin
-claude plugin install autodesk-skills@tylerwarner-plugins
+claude plugin marketplace add tylerwarner33/autodesk-claude-plugins
+claude plugin install autodesk-skills@tylerwarner-autodesk
 ```
 
-To get updates, run `claude plugin marketplace update tylerwarner-plugins`, then `claude plugin update autodesk-skills@tylerwarner-plugins`, then `/reload-plugins` in a session.
+To get updates, run `claude plugin marketplace update tylerwarner-autodesk`, then `claude plugin update autodesk-skills@tylerwarner-autodesk`, then `/reload-plugins` in a session.
 Full steps and troubleshooting: [Docs/Setup-Guide.md](Docs/Setup-Guide.md).
 
 ## What's Included
 
 ### Skills
 
-Claude loads a skill by itself when a request matches it. To start one by name, type `/autodesk-skills:<skill>`.
+Claude loads a skill by itself when a request matches it. To start one by name, type `/autodesk-skills:<skill>` (in chat, type `/` and select the skill).
 
 | Skill | Description |
 |---|---|

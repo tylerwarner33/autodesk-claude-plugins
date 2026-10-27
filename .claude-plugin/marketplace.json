@@ -1,9 +1,9 @@
 {
-  "name": "tylerwarner-plugins",
+  "name": "tylerwarner-autodesk",
   "owner": {
     "name": "tylerwarner33"
   },
-  "description": "Personal Claude Code plugins of Tyler Warner.",
+  "description": "Autodesk Claude plugins of Tyler Warner, for Claude Code, claude.ai, the Claude desktop app, and Cowork.",
   "plugins": [
     {
       "name": "autodesk-skills",

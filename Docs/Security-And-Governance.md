@@ -10,7 +10,7 @@ It is a small supply chain, and it is governed like one.
 | Malicious or careless skill content (prompt injection) | A skill instructs Claude to exfiltrate data, run destructive commands, or weaken review habits | PR-only changes to `main`, small diffs, skills treated as code |
 | A pull request from a fork that attacks the workflow | The pull request changes the workflow or a script to get a token or a secret | The workflow uses `pull_request` with a read-only token and has no secrets. GitHub asks the owner to approve the first run of a new contributor. |
 | Malicious or careless hook or MCP server | A hook or MCP server runs a command on each machine, without a prompt | Tier 2 review. The plugin has no hook or MCP server now. |
-| Careless bundled script | A script in a skill runs on each machine when Claude follows the skill | Tier 2 review and tests. The `aps-docs` script uses only the Python standard library, reads only public Autodesk doc URLs, and writes only its TOC cache in the system temp folder. |
+| Careless bundled script | A script in a skill runs on each machine (or in the claude.ai code execution sandbox) when Claude follows the skill | Tier 2 review and tests. The `aps-docs` script uses only the Python standard library, reads only public Autodesk doc URLs, and writes only its TOC cache in the system temp folder. In chat, network egress allows only the domains that the user adds. |
 | Credential leakage | Tokens committed to skills or docs | The no-secrets policy (below) |
 | Compromised account | Direct push of malicious content | Branch protection on `main` (below) |
 
@@ -51,6 +51,7 @@ When a second maintainer joins, add them to `CODEOWNERS` and remove the bypass, 
 If bad content ships to `main`:
 
 1. Revert the commit on `main` (`git revert`), and bump the version so that installed copies update.
-2. Run `claude plugin update autodesk-skills@tylerwarner-plugins` on each machine that installed it, and restart Claude Code. To stop the plugin until the revert is in, run `claude plugin disable autodesk-skills@tylerwarner-plugins`.
+2. Run `claude plugin update autodesk-skills@tylerwarner-autodesk` on each machine that installed it, and restart Claude Code. To stop the plugin until the revert is in, run `claude plugin disable autodesk-skills@tylerwarner-autodesk`.
+   In claude.ai or the desktop app, select **Check for updates** on the marketplace in **Customize > Plugins**. To stop the plugin until the revert is in, turn on **Disable plugin**.
 3. If the content was tier 2, review recent transcripts for unexpected behavior.
 4. Find how it passed review, and tighten the control.

@@ -39,8 +39,17 @@ allowed-tools: >-
 ## Paths inside a skill
 
 Reference a bundled file as `"${CLAUDE_SKILL_DIR}/scripts/<file>"`. Never hard-code an install path.
-The plugin cache folder name has the plugin version (`~/.claude/plugins/cache/tylerwarner-plugins/autodesk-skills/<version>/`), so it changes with each update.
+The plugin cache folder name has the plugin version (`~/.claude/plugins/cache/tylerwarner-autodesk/autodesk-skills/<version>/`), so it changes with each update.
 State in `SKILL.md` that `${CLAUDE_SKILL_DIR}` is the folder that holds `SKILL.md`.
+Claude Code and Cowork replace `${CLAUDE_SKILL_DIR}`. Chat on claude.ai does not: it copies the skill folder into the code execution sandbox. State in `SKILL.md` that, when the placeholder is not replaced, Claude uses the path relative to the folder of `SKILL.md`.
+
+## All surfaces
+
+A skill must work in Claude Code, in chat (claude.ai, desktop app, mobile), and in Cowork. See `Docs/Claude-Plugin-Distribution.md#surfaces`.
+
+- `allowed-tools` applies only in Claude Code. Do not depend on it for the skill to work.
+- A script that uses the network needs network egress in chat and Cowork. Name each domain in `compatibility`, in the `Cannot reach` error guidance of `SKILL.md`, and in `Docs/Setup-Guide.md`.
+- A script uses only what the chat code execution sandbox has. Prefer the Python standard library.
 
 ## Size
 

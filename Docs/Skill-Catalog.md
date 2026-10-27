@@ -8,10 +8,10 @@ Each `SKILL.md` is instructions for the model, so the documentation for people i
 **Source:** [`skills/aps-docs/SKILL.md`](../skills/aps-docs/SKILL.md)
 **Script:** [`scripts/aps_docs.py`](../skills/aps-docs/scripts/aps_docs.py) (tier 2, with [tests](../skills/aps-docs/tests/test_aps_docs.py))
 **References:** [sources](../skills/aps-docs/references/sources.md) | [glossary](../skills/aps-docs/references/glossary.md) | [worked example](../skills/aps-docs/references/worked-example.md)
-**Needs:** Python 3.9 or later, and internet access. No packages.
+**Needs:** Python 3.9 or later, and internet access. No packages. In claude.ai and Cowork: code execution, with network egress to `developer.doc.autodesk.com` and `developer.doc.config.autodesk.com`.
 
 Answers questions about Autodesk Platform Services (APS, formerly Forge) from the live documentation, not from the memory of the model.
-Start it by name with `/autodesk-skills:aps-docs`, or ask an APS question.
+Start it by name with `/autodesk-skills:aps-docs` (in chat, type `/` and select it), or ask an APS question.
 
 The APS portal is a JavaScript app, so the skill reads the static sources of the same content: a table of contents (TOC) JSON file for each API, and an HTML file for each page.
 The script `aps_docs.py` has 6 commands:

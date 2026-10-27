@@ -1,7 +1,8 @@
 # Contributing Skills
 
 How to author, test, and submit a skill to this repo.
-A skill is part of the `autodesk-skills` Claude Code plugin. Claude Code installs a new version when `version` in `plugin.json` changes.
+A skill is part of the `autodesk-skills` Claude plugin. Claude installs a new version when `version` in `plugin.json` changes.
+A skill must work in Claude Code, in chat on claude.ai and in the desktop app, and in Cowork. See [Claude-Plugin-Distribution.md](./Claude-Plugin-Distribution.md#surfaces).
 
 ## Anatomy of a skill
 
@@ -18,6 +19,8 @@ skills/
 
 A skill that runs a bundled script must reference it as `"${CLAUDE_SKILL_DIR}/scripts/<file>"`, not as a hard-coded path.
 The installed folder name has the plugin version in it, so it changes with each update.
+Chat on claude.ai does not replace `${CLAUDE_SKILL_DIR}`. It copies the skill folder into the code execution sandbox. So `SKILL.md` must also tell Claude to use the path relative to the folder of `SKILL.md`.
+A script that uses the network needs network egress in chat and Cowork. Name each domain in `compatibility`.
 
 The folder name is the skill name. Do not add an `autodesk-skills-` prefix: Claude Code shows the skill `my-skill` as `/autodesk-skills:my-skill`.
 
@@ -64,6 +67,7 @@ Frontmatter limits:
 3. Run the workflow end to end at least once.
 4. From the repository root, run `claude plugin validate .`. It must report no error and no warning.
 5. If the skill has `scripts/`, run its tests from the skill folder: `python -m unittest discover -s tests`.
+6. If the skill has `scripts/`, also test it in a claude.ai chat. See [Claude-Plugin-Distribution.md](./Claude-Plugin-Distribution.md#claudeai-and-cowork).
 
 ## Submitting
 
@@ -77,6 +81,6 @@ To try a branch before it merges, see [Claude-Plugin-Distribution.md](./Claude-P
 
 ## Other AI clients
 
-The plugin is for Claude Code only. GitHub Copilot, Codex, and Cursor do not read Claude Code plugins.
+The plugin is for Claude (Claude Code, claude.ai, the desktop app, and Cowork). GitHub Copilot, Codex, and Cursor do not read Claude plugins.
 Do not mirror a skill into `.github/instructions/` or any other client-specific file.
 Instructions for agents that work on *this repo* are in `AGENTS.md` and `.agents/rules/` - see [Agent-Instructions.md](./Agent-Instructions.md).
