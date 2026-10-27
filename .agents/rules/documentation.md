@@ -27,6 +27,7 @@ LC_ALL=C.UTF-8 grep -rnP '\x{2014}|\x{2013}|(?<!`)e\.g\.' README.md CHANGELOG.md
 ```
 
 A match right after a backtick is allowed: it is a rule that names the forbidden text (ex. "instead of `e.g.`").
+The PR validation workflow runs the same check. Keep the 2 patterns the same.
 
 ## Documents that change together
 
@@ -39,6 +40,7 @@ A match right after a backtick is allowed: it is a rule that names the forbidden
 | The repository layout | `README.md` repo structure, `AGENTS.md` layout table |
 | A document's name, or a new document | `README.md` documentation table |
 | A review tier | `Docs/Security-And-Governance.md`, `CONTRIBUTING.md` |
+| A check in the PR validation workflow | `.agents/rules/pipelines.md`, `CONTRIBUTING.md` |
 
 ## Agent instructions and rules
 

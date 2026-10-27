@@ -26,6 +26,8 @@ For instructions to a coding agent that works on this repository, see [AGENTS.md
 
    For a skill, also do the steps in [Testing before you submit](Docs/Contributing-Skills.md#testing-before-you-submit).
 
+   To run all the checks of the PR validation workflow locally, see [Run the checks locally](.agents/rules/pipelines.md#run-the-checks-locally).
+
 ## Changelog and version
 
 `CHANGELOG.md` is where users see what changed. Each pull request is one new version of the plugin, with one section in `CHANGELOG.md`.
@@ -50,6 +52,7 @@ All changes go through a pull request to `main`. Do not push to `main`.
 
 - **Title:** say what changes, in the imperative (ex. "Add an APS authentication skill").
 - **Description:** a summary, and how you tested the change. For a skill, paste a short transcript that shows the skill starting from a plain request.
+- **Checks:** the PR validation workflow runs on each push. It checks the skill frontmatter, the manifests, the skill tests, the forbidden characters, and the changelog and version. The `Validate` check must pass, and the branch must be up to date with `main`. If `main` changed, click **Update branch**.
 - **Approval:** `.github/CODEOWNERS` makes the owner the required reviewer. The `main` ruleset requires 1 approval from a code owner. The owner merges their own pull request with the admin bypass, because GitHub does not let an author approve their own pull request.
 - **Merge:** squash only. Each pull request is one version, so it is one commit on `main`.
 

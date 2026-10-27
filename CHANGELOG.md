@@ -6,6 +6,11 @@ The version is also in `.claude-plugin/plugin.json`. Claude Code updates an inst
 The newest version is first. The format is [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and [Semantic Versioning](https://semver.org/): a `Breaking` entry bumps the major version, an `Added` entry the minor version, and other entries the patch version.
 See [.agents/rules/changelog.md](.agents/rules/changelog.md).
 
+## [1.1.0] - 2026-10-27
+
+### Added
+- A PR validation workflow. It checks the skill frontmatter, the plugin manifests, the skill tests, the forbidden characters, and the changelog and version on each pull request. A pull request cannot merge until it passes.
+
 ## [1.0.1] - 2026-10-27
 
 ### Changed
