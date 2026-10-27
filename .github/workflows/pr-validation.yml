@@ -1,0 +1,104 @@
+# =============================================================================
+# pr-validation.yml
+# Runs the checks that AGENTS.md requires before a pull request. The "main"
+# ruleset makes the "Validate" job a required status check, so a pull request
+# cannot merge until it passes.
+#
+#   1. The SKILL.md frontmatter (Pipelines/Scripts/Test-SkillFrontmatter.ps1)
+#   2. The plugin and marketplace manifests (Pipelines/Scripts/Test-PluginManifest.ps1)
+#   3. The tests of every skill that has a tests/ folder
+#   4. No em dash, en dash, or "e.g." in the written content
+#   5. CHANGELOG.md and the plugin version: the format, the same version in
+#      plugin.json, and in a pull request run, the next version
+#      (Pipelines/Scripts/Test-Changelog.ps1)
+#
+# This workflow has no secrets. The token can only read the repository.
+# 'claude plugin validate' needs no sign-in. A pull request from a fork runs
+# with the same read-only token.
+# =============================================================================
+
+name: PR Validation
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# A new push to a pull request stops the run for the previous push.
+concurrency:
+  group: pr-validation-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  # The Claude Code CLI version that runs 'claude plugin validate'. Pinned, so a
+  # new release cannot change the result without a pull request.
+  CLAUDE_CODE_VERSION: '2.1.303'
+  # No telemetry or update checks from the CLI.
+  CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC: '1'
+
+jobs:
+  validate:
+    # The ruleset requires the check by this name. Change both together.
+    name: Validate
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      # Depth 2, because the changelog check compares the merge commit of a pull
+      # request run with its first parent, the target branch. The action is pinned
+      # to a commit, because a tag can move.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 2
+          persist-credentials: false
+
+      - name: Validate Skill Frontmatter
+        shell: pwsh
+        run: ./Pipelines/Scripts/Test-SkillFrontmatter.ps1 -SourcesDirectory $env:GITHUB_WORKSPACE
+
+      - name: Install Claude Code CLI
+        run: |
+          npm install --global --no-fund --no-audit "@anthropic-ai/claude-code@${CLAUDE_CODE_VERSION}"
+          claude --version
+
+      - name: Validate Plugin Manifests
+        shell: pwsh
+        run: ./Pipelines/Scripts/Test-PluginManifest.ps1 -SourcesDirectory $env:GITHUB_WORKSPACE
+
+      # The skill scripts use only the Python standard library. The runner image
+      # has Python 3.12.
+      - name: Run Skill Tests
+        run: |
+          set -euo pipefail
+          found=0
+          for tests in skills/*/tests; do
+            [ -d "$tests" ] || continue
+            found=1
+            skill=$(dirname "$tests")
+            echo "::group::$skill"
+            (cd "$skill" && python3 -m unittest discover -s tests -v)
+            echo "::endgroup::"
+          done
+          [ "$found" -eq 1 ] || echo "No skill has a tests/ folder."
+
+      # The same check as in .agents/rules/documentation.md. A match right after a
+      # backtick is the rule text itself (ex. "instead of `e.g.`"), so it is allowed.
+      - name: Check Forbidden Characters
+        run: |
+          set -uo pipefail
+          if LC_ALL=C.UTF-8 grep -rnP '\x{2014}|\x{2013}|(?<!`)e\.g\.' README.md CHANGELOG.md CONTRIBUTING.md Docs/*.md AGENTS.md .agents skills; then
+            echo "::error::Written content has an em dash, an en dash, or 'e.g.'. Use '-' and 'ex.'."
+            exit 1
+          fi
+          echo "No forbidden characters."
+
+      # A pull request must add the next version to CHANGELOG.md and plugin.json (see
+      # .agents/rules/changelog.md). A manual run checks only the format and that the
+      # 2 versions are the same.
+      - name: Check Changelog
+        shell: pwsh
+        env:
+          BASE_REF: ${{ github.event_name == 'pull_request' && 'HEAD^1' || '' }}
+        run: ./Pipelines/Scripts/Test-Changelog.ps1 -SourcesDirectory $env:GITHUB_WORKSPACE -BaseRef $env:BASE_REF

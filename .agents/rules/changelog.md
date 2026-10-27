@@ -69,6 +69,8 @@ The subsections of your section decide the version. Start from the newest versio
 
 When another pull request merges first, merge the latest `main` into your branch, put your section on top of the other one, and compute your version again.
 
+The PR validation workflow checks these rules on each pull request (see `.agents/rules/pipelines.md`).
+
 ## One changelog
 
 `CHANGELOG.md` at the repository root is the only changelog. Do not add a changelog to a skill folder. Name the skill in the entry instead.
