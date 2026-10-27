@@ -1,0 +1,15 @@
+{
+  "name": "tylerwarner-plugins",
+  "owner": {
+    "name": "tylerwarner33"
+  },
+  "description": "Personal Claude Code plugins of Tyler Warner.",
+  "plugins": [
+    {
+      "name": "autodesk-skills",
+      "source": ".",
+      "description": "Skills for Autodesk Platform Services (APS) development.",
+      "category": "development"
+    }
+  ]
+}
