@@ -33,6 +33,7 @@ Claude loads a skill by itself when a request matches it. To start one by name, 
 AGENTS.md                -> instructions for any coding agent that works on this repo
 .agents/rules/           -> on-demand rules listed in AGENTS.md
 .claude-plugin/          -> the marketplace and plugin manifests
+.github/                 -> CODEOWNERS (the required reviewer)
 Docs/                    -> full documentation set
 skills/                  -> agent skills (one folder per skill)
 ```

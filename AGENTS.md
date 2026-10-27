@@ -14,6 +14,7 @@ The instructions a model needs to *use* a skill are in that skill's own `SKILL.m
 |---|---|
 | `skills/<name>/` | One folder per skill: `SKILL.md`, and optional `references/`, `scripts/`, `assets/`, `tests/` |
 | `.claude-plugin/` | `marketplace.json` and `plugin.json` |
+| `.github/CODEOWNERS` | The required reviewer of each pull request (see `Docs/Security-And-Governance.md`) |
 | `.agents/rules/` | On-demand rules for agents that work on this repository (listed below) |
 | `Docs/` | Documentation |
 | `CHANGELOG.md` | What changed for users. One section for each pull request: `## [x.y.z] - yyyy-MM-dd`. The only changelog in the repository. |
