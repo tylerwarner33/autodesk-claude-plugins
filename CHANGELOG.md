@@ -9,7 +9,7 @@ See [.agents/rules/changelog.md](.agents/rules/changelog.md).
 ## [1.0.1] - 2026-10-27
 
 ### Changed
-- `CONTRIBUTING.md` and `Docs/Security-And-Governance.md` say that a pull request can merge with rebase or squash. Rebase keeps each commit of a stacked pull request on `main`.
+- `CONTRIBUTING.md` says how a pull request gets its approval: the code owner review and the admin bypass.
 
 ## [1.0.0] - 2026-10-27
 

@@ -31,7 +31,7 @@ The ruleset `main` (Settings > Rules > Rulesets) applies to the default branch:
 - A pull request needs 1 approval from a code owner. `.github/CODEOWNERS` makes `@tylerwarner33` the owner of all files, so GitHub requests that review on each pull request.
 - A new push dismisses an approval that exists.
 - Force pushes and deletion of `main` are blocked.
-- Rebase and squash are the only merge methods. Merge commits are not allowed, so the history of `main` is linear.
+- Squash is the only merge method.
 
 GitHub does not let the author approve their own pull request. So the Repository admin role can bypass the rules, but only through a pull request (bypass mode "For pull requests only"). The owner can merge their own pull request without an approval, and still cannot push to `main` directly.
 When a second maintainer joins, add them to `CODEOWNERS` and remove the bypass, so that each change gets an approval from a person who is not its author.
