@@ -50,7 +50,8 @@ All changes go through a pull request to `main`. Do not push to `main`.
 
 - **Title:** say what changes, in the imperative (ex. "Add an APS authentication skill").
 - **Description:** a summary, and how you tested the change. For a skill, paste a short transcript that shows the skill starting from a plain request.
-- **Merge:** squash only.
+- **Approval:** `.github/CODEOWNERS` makes the owner the required reviewer. The `main` ruleset requires 1 approval from a code owner. The owner merges their own pull request with the admin bypass, because GitHub does not let an author approve their own pull request.
+- **Merge:** rebase and merge keeps each commit of a stacked pull request on `main`. Squash and merge makes one commit. Use rebase when each commit is a step that is useful on its own. Merge commits are not allowed.
 
 ## Writing style
 

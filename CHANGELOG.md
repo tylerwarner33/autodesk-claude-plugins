@@ -6,6 +6,11 @@ The version is also in `.claude-plugin/plugin.json`. Claude Code updates an inst
 The newest version is first. The format is [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and [Semantic Versioning](https://semver.org/): a `Breaking` entry bumps the major version, an `Added` entry the minor version, and other entries the patch version.
 See [.agents/rules/changelog.md](.agents/rules/changelog.md).
 
+## [1.0.1] - 2026-10-27
+
+### Changed
+- `CONTRIBUTING.md` and `Docs/Security-And-Governance.md` say that a pull request can merge with rebase or squash. Rebase keeps each commit of a stacked pull request on `main`.
+
 ## [1.0.0] - 2026-10-27
 
 ### Added
