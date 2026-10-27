@@ -1,10 +1,25 @@
 # Changelog
 
-The changes to the claude-plugin skills and tooling that users see.
+The changes to the autodesk-claude-plugins skills and tooling that users see.
 Each pull request adds one section with a new version of the `autodesk-skills` plugin, so many versions can have the same date.
-The version is also in `.claude-plugin/plugin.json`. Claude Code updates an installed plugin when that version changes.
+The version is also in `.claude-plugin/plugin.json`. Claude updates an installed plugin when that version changes.
 The newest version is first. The format is [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and [Semantic Versioning](https://semver.org/): a `Breaking` entry bumps the major version, an `Added` entry the minor version, and other entries the patch version.
 See [.agents/rules/changelog.md](.agents/rules/changelog.md).
+
+## [2.0.0] - 2026-10-27
+
+### Breaking
+- The marketplace is now `tylerwarner-autodesk` (it was `tylerwarner-plugins`), and the install id is `autodesk-skills@tylerwarner-autodesk`. Remove the old marketplace, then add it again:
+  - `claude plugin marketplace remove tylerwarner-plugins`
+  - `claude plugin marketplace add tylerwarner33/autodesk-claude-plugins`
+  - `claude plugin install autodesk-skills@tylerwarner-autodesk`
+
+### Added
+- Install steps for claude.ai, the Claude desktop app, and Cowork. The plugin works on these surfaces and in Claude Code.
+
+### Changed
+- The repository is now `tylerwarner33/autodesk-claude-plugins`, a marketplace for more than one Autodesk plugin. The old URL redirects. Use the new name in a new install.
+- `aps-docs` finds its script in a claude.ai chat, where `${CLAUDE_SKILL_DIR}` is not replaced. When the docs cannot be reached in chat or Cowork, it tells the user which domains to allow.
 
 ## [1.1.0] - 2026-10-27
 

@@ -14,7 +14,7 @@ globs:
 Each pull request is one new version of the `autodesk-skills` plugin. The version is in 2 places, and they must be the same:
 
 - The newest section of `CHANGELOG.md`, where users see what changed.
-- `"version"` in `.claude-plugin/plugin.json`. Claude Code updates an installed plugin only when this value changes. A merge that does not change it reaches nobody.
+- `"version"` in `.claude-plugin/plugin.json`. Claude updates an installed plugin only when this value changes. A merge that does not change it reaches nobody.
 
 A change that users do not see (ex. a docs fix) is still a patch version with a short entry.
 Many pull requests can merge on the same day. Each one has its own version.
@@ -25,10 +25,10 @@ Many pull requests can merge on the same day. Each one has its own version.
 ## [1.3.0] - 2026-10-20
 
 ### Added
-- A new skill, option, or document. ([PR #12](https://github.com/tylerwarner33/claude-plugin/pull/12))
+- A new skill, option, or document. ([PR #12](https://github.com/tylerwarner33/autodesk-claude-plugins/pull/12))
 
 ### Fixed
-- A defect that is corrected. ([PR #12](https://github.com/tylerwarner33/claude-plugin/pull/12))
+- A defect that is corrected. ([PR #12](https://github.com/tylerwarner33/autodesk-claude-plugins/pull/12))
 
 ## [1.2.1] - 2026-10-20
 ```

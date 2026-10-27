@@ -1,6 +1,6 @@
-# Contributing to claude-plugin
+# Contributing to autodesk-claude-plugins
 
-This repository is the `autodesk-skills` Claude Code plugin.
+This repository is the `tylerwarner-autodesk` Claude plugin marketplace, for Claude Code, claude.ai, the Claude desktop app, and Cowork. It has one plugin now, `autodesk-skills`.
 Read this document before you open a pull request.
 
 For how to write a skill, see [Docs/Contributing-Skills.md](Docs/Contributing-Skills.md).
@@ -10,7 +10,7 @@ For instructions to a coding agent that works on this repository, see [AGENTS.md
 ## Before you start
 
 - **Check the existing skills first.** A skill that is close to what you need may need a new section, not a new skill. See [Docs/Skill-Catalog.md](Docs/Skill-Catalog.md).
-- **Know that each version ships.** Claude Code updates the plugin when `version` in `plugin.json` changes. A merge to `main` that does not change it reaches nobody.
+- **Know that each version ships.** Claude updates the plugin when `version` in `plugin.json` changes. A merge to `main` that does not change it reaches nobody.
 - **Know the review tier.** A skill with `scripts/` or `assets/`, a hook, or an MCP server runs code on the user machine. It is tier 2. Say so in the pull request description.
 
 ## Make the change

@@ -1,8 +1,9 @@
-# claude-plugin
+# autodesk-claude-plugins
 
 Agent skills for Autodesk Platform Services (APS) development.
-This repository is a Claude Code plugin marketplace (`tylerwarner-plugins`) with one plugin (`autodesk-skills`), both at the repository root.
-Claude Code installs the plugin straight from this GitHub repo (`tylerwarner33/claude-plugin`) and updates it when `version` in `plugin.json` changes.
+This repository is a Claude plugin marketplace (`tylerwarner-autodesk`) with one plugin now (`autodesk-skills`), both at the repository root.
+Claude Code, claude.ai, the Claude desktop app, and Cowork install the plugin straight from this GitHub repo (`tylerwarner33/autodesk-claude-plugins`) and update it when `version` in `plugin.json` changes.
+Keep each skill working on all of these surfaces: see `Docs/Claude-Plugin-Distribution.md#surfaces`.
 See `README.md` for the overview and `Docs/` for the full documentation set.
 
 These are the instructions for a coding agent that works on this repository (ex. Claude Code, GitHub Copilot, Codex, Cursor).
@@ -25,7 +26,7 @@ The instructions a model needs to *use* a skill are in that skill's own `SKILL.m
 ## Working Principles
 
 - **Everything reaches `main` through a pull request.** Branch from `main` with a name that describes the change (ex. `docs/update-setup-guide`). Never push to `main`.
-- **Each version ships to every installed copy.** Claude Code updates a copy when `version` in `.claude-plugin/plugin.json` changes. Treat a change to `skills/` or `.claude-plugin/` like a code change: small diffs, and a full read of the diff before a PR.
+- **Each version ships to every installed copy.** Claude updates a copy when `version` in `.claude-plugin/plugin.json` changes. Treat a change to `skills/` or `.claude-plugin/` like a code change: small diffs, and a full read of the diff before a PR.
 - **No secrets anywhere.** No tokens, keys, or connection strings in skills, docs, scripts, or commits.
 - **Each pull request adds the next version.** One new section on top of `CHANGELOG.md`, and the same version in `.claude-plugin/plugin.json`. Open `.agents/rules/changelog.md` for the format and the version rule.
 - **Validate before a PR.** From the repository root, run `claude plugin validate .` (no error and no warning). For a skill with `scripts/`, also run `python -m unittest discover -s tests` from the skill folder. The PR validation workflow runs these checks and more on each pull request, and a pull request cannot merge until it passes.

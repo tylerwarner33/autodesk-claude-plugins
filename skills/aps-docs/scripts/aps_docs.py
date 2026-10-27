@@ -43,7 +43,7 @@ REFERENCES_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", 
 SOURCES_FILE = os.path.join(REFERENCES_DIR, "sources.md")
 CACHE_DIR = os.path.join(tempfile.gettempdir(), "aps-docs-cache")
 CACHE_SECONDS = 24 * 60 * 60
-USER_AGENT = "aps-docs-skill/1.0 (+https://github.com/tylerwarner33/claude-plugin)"
+USER_AGENT = "aps-docs-skill/1.0 (+https://github.com/tylerwarner33/autodesk-claude-plugins)"
 
 
 class FetchError(Exception):
