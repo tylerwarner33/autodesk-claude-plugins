@@ -1,6 +1,6 @@
 {
   "name": "autodesk-skills",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "displayName": "Autodesk Skills",
   "description": "Skills for Autodesk Platform Services (APS) development.",
   "author": {

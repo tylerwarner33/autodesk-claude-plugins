@@ -1,4 +1,8 @@
-# autodesk-claude-plugins
+# Autodesk Claude Plugins
+
+![Claude Surfaces](https://img.shields.io/badge/Claude-Code%20%7C%20claude.ai%20%7C%20Cowork-blue.svg)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Version](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Ftylerwarner33%2Fautodesk-claude-plugins%2Fmain%2F.claude-plugin%2Fplugin.json&query=%24.version&label=autodesk-skills&color=brightgreen)](CHANGELOG.md)
 
 Claude plugins for Autodesk development. The first plugin, `autodesk-skills`, has skills for Autodesk Platform Services (APS) development.
 This repository is a Claude plugin marketplace (`tylerwarner-autodesk`). Add it once to see each Autodesk plugin in it.
