@@ -6,6 +6,11 @@ The version is also in `plugins/autodesk-skills/.claude-plugin/plugin.json`. Cla
 The newest version is first. The format is [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and [Semantic Versioning](https://semver.org/): a `Breaking` entry bumps the major version, an `Added` entry the minor version, and other entries the patch version.
 See [.agents/rules/changelog.md](.agents/rules/changelog.md).
 
+## [2.1.2] - 2026-11-03
+
+### Changed
+- The `aps-docs` baseline now comes from a full eval run with 3 runs for each case, and not from the single-run pilot. The skill adds +0.28 to the mean score. The skill itself did not change.
+
 ## [2.1.1] - 2026-11-03
 
 ### Changed
