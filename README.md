@@ -51,6 +51,7 @@ AGENTS.md                -> instructions for any coding agent that works on this
 .claude-plugin/          -> the marketplace and plugin manifests
 .github/                 -> CODEOWNERS (the required reviewer) and the PR validation workflow
 Docs/                    -> full documentation set
+evals/                   -> eval suites that measure what each skill adds (see evals/README.md)
 Pipelines/Scripts/       -> the checks that the PR validation workflow runs
 skills/                  -> agent skills (one folder per skill)
 ```

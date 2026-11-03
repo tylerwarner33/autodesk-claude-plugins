@@ -429,3 +429,6 @@ FodyWeavers.xsd
 
 # Bash crash dumps
 bash.exe.stackdump
+
+# Eval reports (local only)
+evals/**/results/

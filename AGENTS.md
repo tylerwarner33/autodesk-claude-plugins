@@ -20,6 +20,7 @@ The instructions a model needs to *use* a skill are in that skill's own `SKILL.m
 | `Pipelines/Scripts/` | The PowerShell scripts that the workflow runs. You can also run them locally. |
 | `.agents/rules/` | On-demand rules for agents that work on this repository (listed below) |
 | `Docs/` | Documentation |
+| `evals/<skill-name>/` | The eval suite of one skill: cases, graders, and a quality spec. See `evals/README.md`. The `results/` folders are local only. |
 | `CHANGELOG.md` | What changed for users. One section for each pull request: `## [x.y.z] - yyyy-MM-dd`. The only changelog in the repository. |
 | `CONTRIBUTING.md` | The pull request process for people |
 
