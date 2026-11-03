@@ -45,7 +45,7 @@ flowchart LR
     Cache --> Code
 ```
 
-1. The repository root is the marketplace (`.claude-plugin/marketplace.json`, name `tylerwarner-autodesk`). Its only plugin is in `plugins/autodesk-skills/` (`.claude-plugin/plugin.json` in that folder, name `autodesk-skills`, `"source": "./plugins/autodesk-skills"`). Claude installs only the plugin folder, so the docs, evals, and pipelines do not reach a user's machine.
+1. The repository root is the marketplace (`.claude-plugin/marketplace.json`, name `tylerwarner-autodesk`). Its only plugin is in `plugins/autodesk-skills/` (`.claude-plugin/plugin.json` in that folder, name `autodesk-skills`, `"source": "./plugins/autodesk-skills"`). The installed copy holds only the plugin folder, so Claude does not load the docs, evals, or pipelines. Claude Code also keeps a full clone of the repository in `~/.claude/plugins/marketplaces/`, and that clone has all the folders.
 2. A user adds the marketplace, then installs the plugin. In claude.ai or the desktop app, the plugin is saved to the account, and it syncs to Claude Code when Claude Code is signed in to the same account. A plugin installed from the Claude Code command line stays on that machine.
 3. The version is `"version"` in `plugins/autodesk-skills/.claude-plugin/plugin.json`. Claude installs a new copy only when that value changes. Each pull request bumps it and adds the same version to [CHANGELOG.md](../CHANGELOG.md).
 
