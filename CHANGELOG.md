@@ -6,6 +6,11 @@ The version is also in `.claude-plugin/plugin.json`. Claude updates an installed
 The newest version is first. The format is [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and [Semantic Versioning](https://semver.org/): a `Breaking` entry bumps the major version, an `Added` entry the minor version, and other entries the patch version.
 See [.agents/rules/changelog.md](.agents/rules/changelog.md).
 
+## [2.0.2] - 2026-11-03
+
+### Fixed
+- `aps-docs`: the skill now tells Claude to run each script call as its own command. A call that used a variable or joined commands could be denied, and then the skill answered without the live docs.
+
 ## [2.0.1] - 2026-10-28
 
 ### Changed

@@ -19,7 +19,7 @@ allowed-tools: >-
   Bash(python *aps_docs.py*)
   Bash(python3 *aps_docs.py*)
 metadata:
-  version: "1.1.0"
+  version: "1.1.1"
   owner: "tylerwarner33"
   origin: "https://github.com/autodesk-platform-services/skills (skills/aps-docs-portal)"
 ---
@@ -34,6 +34,8 @@ python "${CLAUDE_SKILL_DIR}/scripts/aps_docs.py" <command> ...
 
 If `python` is not found, use `python3`.
 If `${CLAUDE_SKILL_DIR}` is not replaced by a path (ex. in a claude.ai chat), use the path of `scripts/aps_docs.py` relative to the folder of this `SKILL.md` in the code execution sandbox.
+
+Run each script call as its own command, in the form above. Write the full script path in each call. Do not put the path in a variable, and do not join calls with `;`, `&&`, or a pipe. In Claude Code, the pre-approved tool rules cover only this form. Another form can be denied, and then the skill cannot read the docs. To make two searches, make two separate calls.
 
 Read the reference files only through the script (`sources`, `glossary`, `example`). Do not open the files in `references/` with the Read tool or a shell command: the skill folder can be outside the working folder, and a direct read can stop for approval.
 
