@@ -2,17 +2,17 @@
 name: Skill Authoring
 description: The skill folder layout and names, SKILL.md frontmatter, path variables, and how to validate and test a skill in the plugin
 triggers:
-  - Creating a new skill or editing any file under skills/
+  - Creating a new skill or editing any file under plugins/autodesk-skills/skills/
   - Editing SKILL.md frontmatter (name, description, allowed-tools, compatibility, metadata)
   - Adding scripts/, assets/, or tests/ to a skill
   - claude plugin validate reports an error or warning
 globs:
-  - "skills/**"
+  - "plugins/*/skills/**"
 ---
 
 ## Folder and name
 
-- One folder per skill: `skills/<name>/SKILL.md`. The folder name and the `name:` field must be identical.
+- One folder per skill: `plugins/autodesk-skills/skills/<name>/SKILL.md`. The folder name and the `name:` field must be identical.
 - Names are lowercase kebab-case, with no `autodesk-skills-` prefix. The plugin name is the prefix: Claude Code shows the skill `aps-docs` as `/autodesk-skills:aps-docs`.
 - A name says what the skill does. Do not use a name that only makes sense with the prefix (ex. `skills`).
 - Optional folders: `references/` (loaded on demand), `scripts/` (code the skill runs), `assets/` (templates, images), `tests/` (required when `scripts/` exists).
@@ -61,15 +61,15 @@ Diagrams belong in `Docs/Skill-Catalog.md`, not in `SKILL.md`.
 From the repository root:
 
 ```
-claude plugin validate .
+claude plugin validate plugins/autodesk-skills
 ```
 
-`validate` must report no error and no warning. A skill change is also a new plugin version: open `.agents/rules/changelog.md`.
+`validate` must report no error and no warning in the manifests and the skills. A skill change is also a new plugin version: open `.agents/rules/changelog.md`.
 
 To test the skill in a session, load the working folder as the plugin. Nothing is installed:
 
 ```
-claude --plugin-dir .
+claude --plugin-dir plugins/autodesk-skills
 ```
 
 Ask for the task the way a user would, without the skill name, and check that the skill loads. After each edit, run `/reload-plugins`.

@@ -23,7 +23,7 @@ globs:
 Check a change for forbidden characters:
 
 ```
-LC_ALL=C.UTF-8 grep -rnP '\x{2014}|\x{2013}|(?<!`)e\.g\.' README.md CHANGELOG.md CONTRIBUTING.md Docs/*.md AGENTS.md .agents skills
+LC_ALL=C.UTF-8 grep -rnP '\x{2014}|\x{2013}|(?<!`)e\.g\.' README.md CHANGELOG.md CONTRIBUTING.md Docs/*.md AGENTS.md .agents plugins
 ```
 
 A match right after a backtick is allowed: it is a rule that names the forbidden text (ex. "instead of `e.g.`").

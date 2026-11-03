@@ -22,7 +22,7 @@ Do not use a symlink in place of the import. On Windows, a symlink needs extra r
 
 A trigger says exactly when to open the rule. Name files, folders, commands, or kinds of request:
 
-- Good: "Open when editing anything under `skills/`."
+- Good: "Open when editing anything under `plugins/autodesk-skills/skills/`."
 - Bad: "Open when relevant."
 
 ## Rule file format
@@ -32,9 +32,9 @@ A trigger says exactly when to open the rule. Name files, folders, commands, or 
 name: Skill Authoring
 description: One line that says what the rule covers
 triggers:
-  - Creating or editing a file under skills/
+  - Creating or editing a file under plugins/autodesk-skills/skills/
 globs:
-  - "skills/**"
+  - "plugins/*/skills/**"
 ---
 
 The rule text.

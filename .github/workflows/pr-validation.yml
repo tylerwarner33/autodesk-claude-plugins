@@ -73,7 +73,7 @@ jobs:
         run: |
           set -euo pipefail
           found=0
-          for tests in skills/*/tests; do
+          for tests in plugins/*/skills/*/tests; do
             [ -d "$tests" ] || continue
             found=1
             skill=$(dirname "$tests")
@@ -88,7 +88,7 @@ jobs:
       - name: Check Forbidden Characters
         run: |
           set -uo pipefail
-          if LC_ALL=C.UTF-8 grep -rnP '\x{2014}|\x{2013}|(?<!`)e\.g\.' README.md CHANGELOG.md CONTRIBUTING.md Docs/*.md AGENTS.md .agents skills; then
+          if LC_ALL=C.UTF-8 grep -rnP '\x{2014}|\x{2013}|(?<!`)e\.g\.' README.md CHANGELOG.md CONTRIBUTING.md Docs/*.md AGENTS.md .agents plugins; then
             echo "::error::Written content has an em dash, an en dash, or 'e.g.'. Use '-' and 'ex.'."
             exit 1
           fi

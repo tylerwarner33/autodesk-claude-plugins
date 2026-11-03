@@ -13,8 +13,9 @@
 	   the future. Many sections can have the same date. Each section has one or
 	   more subsections, in this order: Breaking, Added, Changed, Fixed, Removed,
 	   Security. Each subsection has one or more '- ' entries.
-	2. The newest version is the 'version' in .claude-plugin/plugin.json. Claude
-	   Code updates an installed plugin only when that version changes.
+	2. The newest version is the 'version' in
+	   plugins/autodesk-skills/.claude-plugin/plugin.json. Claude Code updates an
+	   installed plugin only when that version changes.
 	3. With -BaseRef: the pull request adds exactly one section on top of the
 	   newest section of BaseRef, and its version is the next one:
 	   a Breaking entry bumps the major version, an Added entry the minor
@@ -44,6 +45,7 @@ $errors = 0
 $file = 'CHANGELOG.md'
 $subsections = @('Breaking', 'Added', 'Changed', 'Fixed', 'Removed', 'Security')
 $headingFormat = '## [x.y.z] - yyyy-MM-dd'
+$manifestFile = 'plugins/autodesk-skills/.claude-plugin/plugin.json'
 
 function Write-PipelineError { param($msg) Write-Host "::error::$msg"; $script:errors++ }
 
@@ -135,11 +137,11 @@ $newest = $sections[0]
 Write-Host "Checked: $file format ($($sections.Count) versions, newest $($newest.Version))"
 
 # --- 2. The plugin version -----------------------------------------------------------
-$manifest = Get-Content -LiteralPath (Join-Path $SourcesDirectory '.claude-plugin/plugin.json') -Raw | ConvertFrom-Json
+$manifest = Get-Content -LiteralPath (Join-Path $SourcesDirectory $manifestFile) -Raw | ConvertFrom-Json
 if ("$($manifest.version)" -cne "$($newest.Version)") {
-	Write-PipelineError ".claude-plugin/plugin.json has version '$($manifest.version)', but the newest $file version is $($newest.Version). Use the same version in both files."
+	Write-PipelineError "$manifestFile has version '$($manifest.version)', but the newest $file version is $($newest.Version). Use the same version in both files."
 }
-Write-Host "Checked: .claude-plugin/plugin.json version ($($manifest.version))"
+Write-Host "Checked: $manifestFile version ($($manifest.version))"
 
 # --- 3. The pull request adds the next version ---------------------------------------
 if ($BaseRef) {
@@ -157,11 +159,11 @@ if ($BaseRef) {
 		$expected = Get-NextVersion $baseVersion $newest.Subs
 		$bumpRule = 'a Breaking entry bumps the major version, an Added entry the minor version, and other entries the patch version'
 		if ($newest.Version -eq $baseVersion) {
-			Write-PipelineError "This pull request adds no new version to $file. Add a '## [x.y.z] - <today>' section on top of [$baseVersion] ($bumpRule), and set the same version in .claude-plugin/plugin.json - see .agents/rules/changelog.md."
+			Write-PipelineError "This pull request adds no new version to $file. Add a '## [x.y.z] - <today>' section on top of [$baseVersion] ($bumpRule), and set the same version in $manifestFile - see .agents/rules/changelog.md."
 		} elseif ($sections.Count -lt 2 -or $sections[1].Version -ne $baseVersion) {
 			Write-PipelineError "This pull request must add exactly one section, directly on top of [$baseVersion], the newest version on the target branch. If another pull request merged first, move your entries to a new section on top of it."
 		} elseif ($newest.Version -ne $expected) {
-			Write-PipelineError "The new version must be $expected, not $($newest.Version): $bumpRule. Use $expected in $file and in .claude-plugin/plugin.json."
+			Write-PipelineError "The new version must be $expected, not $($newest.Version): $bumpRule. Use $expected in $file and in $manifestFile."
 		} else {
 			Write-Host "Checked: this pull request adds version $($newest.Version) on top of $baseVersion"
 		}

@@ -2,9 +2,14 @@
 
 The changes to the autodesk-claude-plugins skills and tooling that users see.
 Each pull request adds one section with a new version of the `autodesk-skills` plugin, so many versions can have the same date.
-The version is also in `.claude-plugin/plugin.json`. Claude updates an installed plugin when that version changes.
+The version is also in `plugins/autodesk-skills/.claude-plugin/plugin.json`. Claude updates an installed plugin when that version changes.
 The newest version is first. The format is [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and [Semantic Versioning](https://semver.org/): a `Breaking` entry bumps the major version, an `Added` entry the minor version, and other entries the patch version.
 See [.agents/rules/changelog.md](.agents/rules/changelog.md).
+
+## [2.1.1] - 2026-11-03
+
+### Changed
+- An installed copy of `autodesk-skills` now holds only the plugin. The repository docs, evals, and pipelines no longer install with it. The install id and the skills did not change, so you do not have to do anything.
 
 ## [2.1.0] - 2026-11-03
 

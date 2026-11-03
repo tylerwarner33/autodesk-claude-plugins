@@ -3,10 +3,10 @@ name: Changelog
 description: How each pull request adds a new plugin version to CHANGELOG.md and plugin.json, and the format
 triggers:
   - Before you create or update a pull request
-  - Editing CHANGELOG.md, or the version in .claude-plugin/plugin.json
+  - Editing CHANGELOG.md, or the version in plugins/autodesk-skills/.claude-plugin/plugin.json
 globs:
   - "CHANGELOG.md"
-  - ".claude-plugin/plugin.json"
+  - "plugins/*/.claude-plugin/plugin.json"
 ---
 
 ## Why each pull request adds a version
@@ -14,7 +14,7 @@ globs:
 Each pull request is one new version of the `autodesk-skills` plugin. The version is in 2 places, and they must be the same:
 
 - The newest section of `CHANGELOG.md`, where users see what changed.
-- `"version"` in `.claude-plugin/plugin.json`. Claude updates an installed plugin only when this value changes. A merge that does not change it reaches nobody.
+- `"version"` in `plugins/autodesk-skills/.claude-plugin/plugin.json`. Claude updates an installed plugin only when this value changes. A merge that does not change it reaches nobody.
 
 A change that users do not see (ex. a docs fix) is still a patch version with a short entry.
 Many pull requests can merge on the same day. Each one has its own version.
@@ -64,7 +64,7 @@ The subsections of your section decide the version. Start from the newest versio
 
 1. Find the newest version on `main`: the first `## [` heading in `CHANGELOG.md`.
 2. Write your entries in a new section on top of it. Choose the version from the table above, and use today's date.
-3. Set the same version in `"version"` in `.claude-plugin/plugin.json`.
+3. Set the same version in `"version"` in `plugins/autodesk-skills/.claude-plugin/plugin.json`.
 4. After you create the pull request, add the PR link to each entry (optional).
 
 When another pull request merges first, merge the latest `main` into your branch, put your section on top of the other one, and compute your version again.
