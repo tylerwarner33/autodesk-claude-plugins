@@ -28,7 +28,7 @@ evals/
 
 Run these from the repository root.
 
-Runs that grant `Bash` need a sandbox backend. Native Windows has none, so such a run is refused. Run the commands in WSL (ex. Ubuntu with `bubblewrap` and `socat`).
+Runs that grant `Bash` need a sandbox backend. Native Windows has none, so such a run is refused. On Windows, run the commands in WSL2: see [Run on Windows (WSL2)](#run-on-windows-wsl2). On Linux or macOS, run them in a terminal.
 
 | Task | Command |
 |---|---|
@@ -39,6 +39,39 @@ Runs that grant `Bash` need a sandbox backend. Native Windows has none, so such 
 `--case` takes one pattern. A brace or a character class does not work.
 
 The `init` line is from `claude plugin eval init --help`. It is not tested: `init` is an interactive interview.
+
+### Run on Windows (WSL2)
+
+Do not run an eval from native Windows. Any run that grants `Bash` is refused there. Use a Linux distribution in WSL2. These steps were tested with Ubuntu 22.04.
+
+**One-time setup**
+
+1. Install the distribution. In PowerShell: `wsl --install -d Ubuntu-22.04`. Then open it once and create the Linux user.
+2. In the distribution, install the sandbox tools: `sudo apt update && sudo apt install -y bubblewrap socat`.
+3. In the distribution, install Claude Code as the Claude Code setup guide says. The `claude` binary is then at `~/.local/bin/claude`.
+4. Start `~/.local/bin/claude` once and log in with the same account that you use on Windows. Trust the repository folder when it asks.
+5. Use the repository on the Windows drive. In WSL its path is `/mnt/c/<path to the repository>`. You do not need a second clone.
+
+**Run a suite**
+
+1. Write the command in a script file on the Windows drive, outside the repository (ex. in your temp folder). Start the script with `cd /mnt/c/<path to the repository>`, then the `claude plugin eval` command from the [Commands](#commands) table. Call `~/.local/bin/claude` by its full path.
+2. Start the script from PowerShell: `wsl -d Ubuntu-22.04 -- bash /mnt/c/<path to the script>`.
+
+Rules for the script:
+
+- Do not put the `claude` command directly on the `wsl` command line. The quoted `--allow-tools` patterns can be parsed again, and the run fails.
+- Do not start the script from Git Bash. It rewrites a path that starts with `/mnt/c`, and the command ends with exit code 127. Use PowerShell.
+- A full run takes several minutes. In an agent session, start it as a background task.
+
+**Problems**
+
+| Symptom | Fix |
+|---|---|
+| The run is refused because no sandbox backend is available | You started it from native Windows. Start it in WSL. |
+| `bwrap` or `socat` is not found | Install them: `sudo apt install -y bubblewrap socat`. |
+| Runs that grant `Bash` are blocked, and `~/.docker/contexts` is a symbolic link | Replace the link with a real folder. |
+| A run ends with `error` and score 0, and every case is the same | Look at the `error` field. A usage limit ("5-hour limit") ends a run before grading. Wait for the reset, delete that report folder, and run again. |
+| `Exit code 1` and `Read-only file system` in the shell wrapper, with the full output of the script | Not a failure of the script. Ignore it. |
 
 ### Grants for the `aps-docs` suite
 
