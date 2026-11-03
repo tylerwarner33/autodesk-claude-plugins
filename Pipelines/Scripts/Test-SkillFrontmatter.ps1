@@ -1,10 +1,11 @@
 <#
 .SYNOPSIS
-	Checks the SKILL.md frontmatter of every skill under skills/.
+	Checks the SKILL.md frontmatter of every skill under plugins/*/skills/.
 
 .DESCRIPTION
-	Used by .github/workflows/pr-validation.yml. Fails when a folder under skills/ has
-	no SKILL.md, or when a SKILL.md frontmatter breaks the Agent Skills limits.
+	Used by .github/workflows/pr-validation.yml. Fails when a folder under
+	plugins/*/skills/ has no SKILL.md, or when a SKILL.md frontmatter breaks the Agent
+	Skills limits.
 	Writes GitHub Actions workflow commands, so errors and warnings show on the run
 	summary and on the pull request.
 
@@ -27,8 +28,7 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
-$skillsRoot = Join-Path $SourcesDirectory 'skills'
-$errors     = 0
+$errors = 0
 
 # The top-level fields in the Agent Skills specification.
 $knownFields = @('name', 'description', 'license', 'compatibility', 'metadata', 'allowed-tools')
@@ -36,9 +36,9 @@ $knownFields = @('name', 'description', 'license', 'compatibility', 'metadata', 
 function Write-PipelineError { param($msg) Write-Host "::error::$msg"; $script:errors++ }
 function Write-PipelineWarning { param($msg) Write-Host "::warning::$msg" }
 
-$folders = @(Get-ChildItem -LiteralPath $skillsRoot -Directory | Select-Object -ExpandProperty Name)
+$folders = @(Get-ChildItem -Path (Join-Path $SourcesDirectory 'plugins/*/skills/*') -Directory)
 if ($folders.Count -eq 0) {
-	Write-PipelineError "The skills/ folder has no skills."
+	Write-PipelineError "No plugin under plugins/ has a skill."
 	exit 1
 }
 
@@ -56,11 +56,13 @@ function ConvertFrom-YamlScalar {
 	return $Text
 }
 
-foreach ($name in $folders) {
-	$skillFile = Join-Path $skillsRoot "$name/SKILL.md"
-	$label     = "skills/$name/SKILL.md"
+foreach ($folder in $folders) {
+	$name      = $folder.Name
+	$skillFile = Join-Path $folder.FullName 'SKILL.md'
+	$skillPath = "plugins/$($folder.Parent.Parent.Name)/skills/$name"
+	$label     = "$skillPath/SKILL.md"
 	if (-not (Test-Path -LiteralPath $skillFile)) {
-		Write-PipelineError "'skills/$name' has no SKILL.md."
+		Write-PipelineError "'$skillPath' has no SKILL.md."
 		continue
 	}
 
@@ -194,7 +196,7 @@ foreach ($name in $folders) {
 		}
 	}
 
-	Write-Host "Checked: skills/$name ($("$description".Length)-character description)"
+	Write-Host "Checked: $skillPath ($("$description".Length)-character description)"
 }
 
 if ($errors -gt 0) { exit 1 }

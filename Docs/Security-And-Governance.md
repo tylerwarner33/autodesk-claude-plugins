@@ -18,8 +18,8 @@ It is a small supply chain, and it is governed like one.
 
 | Tier | Content | Risk | Review bar |
 |---|---|---|---|
-| 1 | Skills (`skills/**/SKILL.md`, references) | Influences Claude's behavior; no direct execution | Read the full diff |
-| 2 | The plugin manifests, hooks, an MCP server, and scripts or assets bundled in a skill (`skills/*/scripts/**`, `skills/*/assets/**`) | Arbitrary command execution on the machine. Hooks and an MCP server run with the user's rights, outside the sandbox, without a prompt. | Read the full diff, run the tests, say "tier 2" in the PR description |
+| 1 | Skills (`plugins/*/skills/**/SKILL.md`, references) | Influences Claude's behavior; no direct execution | Read the full diff |
+| 2 | The plugin manifests, hooks, an MCP server, and scripts or assets bundled in a skill (`plugins/*/skills/*/scripts/**`, `plugins/*/skills/*/assets/**`) | Arbitrary command execution on the machine. Hooks and an MCP server run with the user's rights, outside the sandbox, without a prompt. | Read the full diff, run the tests, say "tier 2" in the PR description |
 | 2 | The PR validation workflow and its scripts (`.github/workflows/**`, `Pipelines/**`) | A weaker check lets bad content merge. A workflow runs code on GitHub with the repository token. | Read the full diff, run the checks locally, say "tier 2" in the PR description |
 
 A skill with a `scripts/` folder is tier 2 as a whole, because its `SKILL.md` tells Claude to run those scripts.

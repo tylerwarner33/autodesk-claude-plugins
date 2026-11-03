@@ -8,7 +8,7 @@ One plugin folder works on all the Claude surfaces. Each surface loads the parts
 
 | Part | Where | What it does |
 |---|---|---|
-| Skills | `skills/<name>/` | Shown as `/autodesk-skills:<name>` (ex. `/autodesk-skills:aps-docs`). Claude also loads a skill by itself when a request matches its description. |
+| Skills | `plugins/autodesk-skills/skills/<name>/` | Shown as `/autodesk-skills:<name>` (ex. `/autodesk-skills:aps-docs`). Claude also loads a skill by itself when a request matches its description. |
 
 A plugin can also have hooks, MCP servers, subagents, commands, and output styles. Add them in the same pull request process as a skill. Hooks and MCP servers are tier 2 (see [Security-And-Governance.md](./Security-And-Governance.md)).
 A plugin cannot set the status line.
@@ -45,9 +45,9 @@ flowchart LR
     Cache --> Code
 ```
 
-1. The repository root is the marketplace (`.claude-plugin/marketplace.json`, name `tylerwarner-autodesk`) and its only plugin (`.claude-plugin/plugin.json`, name `autodesk-skills`, `"source": "."`).
+1. The repository root is the marketplace (`.claude-plugin/marketplace.json`, name `tylerwarner-autodesk`). Its only plugin is in `plugins/autodesk-skills/` (`.claude-plugin/plugin.json` in that folder, name `autodesk-skills`, `"source": "./plugins/autodesk-skills"`). Claude installs only the plugin folder, so the docs, evals, and pipelines do not reach a user's machine.
 2. A user adds the marketplace, then installs the plugin. In claude.ai or the desktop app, the plugin is saved to the account, and it syncs to Claude Code when Claude Code is signed in to the same account. A plugin installed from the Claude Code command line stays on that machine.
-3. The version is `"version"` in `.claude-plugin/plugin.json`. Claude installs a new copy only when that value changes. Each pull request bumps it and adds the same version to [CHANGELOG.md](../CHANGELOG.md).
+3. The version is `"version"` in `plugins/autodesk-skills/.claude-plugin/plugin.json`. Claude installs a new copy only when that value changes. Each pull request bumps it and adds the same version to [CHANGELOG.md](../CHANGELOG.md).
 
 ## Install
 
@@ -100,7 +100,7 @@ In Claude Code, these commands update by hand:
 Load the working folder as the plugin. Nothing is installed:
 
 ```
-claude --plugin-dir .
+claude --plugin-dir plugins/autodesk-skills
 ```
 
 Run `/reload-plugins` after each edit.
@@ -112,7 +112,7 @@ claude plugin marketplace add tylerwarner33/autodesk-claude-plugins@<branch>
 
 ### claude.ai and Cowork
 
-1. Zip the repository folder. The zip must have `.claude-plugin/plugin.json` at its root, or inside one top-level folder. Do not include `.git/`.
+1. Zip the `plugins/autodesk-skills` folder. The zip must have `.claude-plugin/plugin.json` at its root, or inside one top-level folder.
 2. In claude.ai, select **Customize > Plugins > Add > Upload plugin**, and select the zip.
 3. Open a new chat. Ask an APS question, and check that Claude loads the skill.
 4. When the test is done, remove the uploaded plugin, so that it does not hide the marketplace copy.
@@ -121,9 +121,10 @@ claude plugin marketplace add tylerwarner33/autodesk-claude-plugins@<branch>
 
 ```
 claude plugin validate .
+claude plugin validate plugins/autodesk-skills
 ```
 
-The command must report no error and no warning.
+The first command checks the marketplace. The second checks the plugin. Each must report no error and no warning in the manifests.
 
 ## References
 

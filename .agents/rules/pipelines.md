@@ -30,7 +30,7 @@ Say in the pull request description that the change is tier 2 (see `Docs/Securit
 - The checks are in `Pipelines/Scripts/`. Change the checks there, not inline, so that you can run them locally with the same result.
 - The scripts write GitHub Actions workflow commands (`::error::`, `::warning::`). A script fails with exit code 1 when it wrote an error.
 - `Test-SkillFrontmatter.ps1` has its own small YAML parser, so the workflow needs no module. It must report a form that it cannot read as an error, and never pass a value that it did not read. Use the case-sensitive operators (`-cmatch`, `-cne`, `-cin`) for names: `-match` and `-ne` ignore case.
-- `Test-PluginManifest.ps1` fails on any `claude plugin validate` error or warning in the manifests. The plugin directory findings (ex. `ICON_MISSING`) do not fail.
+- `Test-PluginManifest.ps1` runs `claude plugin validate` on the repository root (the marketplace) and on each folder under `plugins/`. It fails on any error or warning in the manifests. The plugin directory findings (ex. `ICON_MISSING`) do not fail.
 - `Test-Changelog.ps1` checks the `CHANGELOG.md` format, and that its newest version is the `version` in `plugin.json`, on every run. In a pull request run it also needs exactly one new section with the next version: it compares `HEAD`, the merge commit that GitHub makes, with `HEAD^1`, the target branch. Keep `fetch-depth: 2` or more. The format is in `.agents/rules/changelog.md`.
 - The Claude Code CLI version is pinned in `CLAUDE_CODE_VERSION`. Update it in a pull request, and run the checks locally with the new version first.
 - Keep the forbidden character pattern the same as in `.agents/rules/documentation.md`.

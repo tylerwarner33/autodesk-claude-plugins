@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "autodesk-skills",
-      "source": ".",
+      "source": "./plugins/autodesk-skills",
       "description": "Skills for Autodesk Platform Services (APS) development.",
       "category": "development"
     }

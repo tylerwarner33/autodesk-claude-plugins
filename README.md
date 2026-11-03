@@ -2,7 +2,7 @@
 
 ![Claude Surfaces](https://img.shields.io/badge/Claude-Code%20%7C%20claude.ai%20%7C%20Cowork-blue.svg)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Ftylerwarner33%2Fautodesk-claude-plugins%2Fmain%2F.claude-plugin%2Fplugin.json&query=%24.version&label=autodesk-skills&color=brightgreen)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Ftylerwarner33%2Fautodesk-claude-plugins%2Fmain%2Fplugins%2Fautodesk-skills%2F.claude-plugin%2Fplugin.json&query=%24.version&label=autodesk-skills&color=brightgreen)](CHANGELOG.md)
 
 Claude plugins for Autodesk development. The first plugin, `autodesk-skills`, has skills for Autodesk Platform Services (APS) development.
 This repository is a Claude plugin marketplace (`tylerwarner-autodesk`). Add it once to see each Autodesk plugin in it.
@@ -48,12 +48,12 @@ Claude loads a skill by itself when a request matches it. To start one by name, 
 ```
 AGENTS.md                -> instructions for any coding agent that works on this repo
 .agents/rules/           -> on-demand rules listed in AGENTS.md
-.claude-plugin/          -> the marketplace and plugin manifests
+.claude-plugin/          -> the marketplace manifest
 .github/                 -> CODEOWNERS (the required reviewer) and the PR validation workflow
 Docs/                    -> full documentation set
 evals/                   -> eval suites that measure what each skill adds (see evals/README.md)
 Pipelines/Scripts/       -> the checks that the PR validation workflow runs
-skills/                  -> agent skills (one folder per skill)
+plugins/autodesk-skills/ -> the plugin: its manifest and skills. Only this folder installs.
 ```
 
 ## Documentation

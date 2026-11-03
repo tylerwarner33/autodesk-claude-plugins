@@ -5,9 +5,9 @@ Each `SKILL.md` is instructions for the model, so the documentation for people i
 
 ## aps-docs
 
-**Source:** [`skills/aps-docs/SKILL.md`](../skills/aps-docs/SKILL.md)
-**Script:** [`scripts/aps_docs.py`](../skills/aps-docs/scripts/aps_docs.py) (tier 2, with [tests](../skills/aps-docs/tests/test_aps_docs.py))
-**References:** [sources](../skills/aps-docs/references/sources.md) | [glossary](../skills/aps-docs/references/glossary.md) | [worked example](../skills/aps-docs/references/worked-example.md)
+**Source:** [`plugins/autodesk-skills/skills/aps-docs/SKILL.md`](../plugins/autodesk-skills/skills/aps-docs/SKILL.md)
+**Script:** [`scripts/aps_docs.py`](../plugins/autodesk-skills/skills/aps-docs/scripts/aps_docs.py) (tier 2, with [tests](../plugins/autodesk-skills/skills/aps-docs/tests/test_aps_docs.py))
+**References:** [sources](../plugins/autodesk-skills/skills/aps-docs/references/sources.md) | [glossary](../plugins/autodesk-skills/skills/aps-docs/references/glossary.md) | [worked example](../plugins/autodesk-skills/skills/aps-docs/references/worked-example.md)
 **Needs:** Python 3.9 or later, and internet access. No packages. In claude.ai and Cowork: code execution, with network egress to `developer.doc.autodesk.com` and `developer.doc.config.autodesk.com`.
 
 Answers questions about Autodesk Platform Services (APS, formerly Forge) from the live documentation, not from the memory of the model.

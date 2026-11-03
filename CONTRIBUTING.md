@@ -17,11 +17,12 @@ For instructions to a coding agent that works on this repository, see [AGENTS.md
 
 1. Branch from `main`. Use a name that describes the change (ex. `feature/aps-auth-skill`, `fix/aps-docs-toc`).
 2. Make the change. Keep the diff small: one subject for each pull request.
-3. Add a new version to [CHANGELOG.md](CHANGELOG.md) and `.claude-plugin/plugin.json`. See [Changelog and version](#changelog-and-version).
-4. Test the change from the repository root. The command must report no error and no warning:
+3. Add a new version to [CHANGELOG.md](CHANGELOG.md) and `plugins/autodesk-skills/.claude-plugin/plugin.json`. See [Changelog and version](#changelog-and-version).
+4. Test the change from the repository root. Each command must report no error and no warning in the manifests:
 
    ```
    claude plugin validate .
+   claude plugin validate plugins/autodesk-skills
    ```
 
    For a skill, also do the steps in [Testing before you submit](Docs/Contributing-Skills.md#testing-before-you-submit).
@@ -42,7 +43,7 @@ For instructions to a coding agent that works on this repository, see [AGENTS.md
    | An `Added` entry, and no `Breaking` | Minor | 1.3.0 |
    | Only `Changed`, `Fixed`, `Removed`, or `Security` | Patch | 1.2.2 |
 
-4. Set the same version in `"version"` in `.claude-plugin/plugin.json`.
+4. Set the same version in `"version"` in `plugins/autodesk-skills/.claude-plugin/plugin.json`.
 
 The full format is in [.agents/rules/changelog.md](.agents/rules/changelog.md).
 

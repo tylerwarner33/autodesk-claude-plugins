@@ -2,7 +2,9 @@
 
 An eval measures uplift (Δ): the score of each case with the plugin, minus the score of the same case without it.
 A high score alone proves little. A case where the plugin does not add anything shows Δ near 0.
-The plugin is read-only for an eval author. Write only under `evals/`. Do not edit `skills/`, `commands/`, or `.claude-plugin/`. If an eval finds a problem in the plugin, file it as a follow-up.
+The plugin is read-only for an eval author. Write only under `evals/`. Do not edit `plugins/` or `.claude-plugin/`. If an eval finds a problem in the plugin, file it as a follow-up.
+The `evals/` folder is outside the plugin folder, so it does not install with the plugin.
+For the full `claude plugin eval` reference, see <https://code.claude.com/docs/en/plugin-evals>.
 
 ## Suites
 
@@ -15,7 +17,7 @@ The plugin is read-only for an eval author. Write only under `evals/`. Do not ed
 ```
 evals/
 ├── README.md                      (this file)
-└── <skill-name>/                  (same name as skills/<skill-name>/)
+└── <skill-name>/                  (same name as plugins/autodesk-skills/skills/<skill-name>/)
     ├── QUALITY-SPEC.md            (what "good" means for the skill; the graders follow it)
     ├── BASELINE.md                (the last measured Δ; committed)
     ├── NN-<case-slug>/
@@ -35,6 +37,14 @@ Runs that grant `Bash` need a sandbox backend. Native Windows has none, so such 
 | Add a suite | `claude plugin eval init --eval-dir evals/<skill-name>` |
 | Run one suite | `claude plugin eval . --eval-dir evals/<skill-name> --ablation with-without --no-publish --no-scaffold --judge-model opus --allow-tools <grants>` |
 | Run one case | The same command, with `--case "01-*" --runs 1` added |
+
+The target is the repository root (`.`), not `plugins/autodesk-skills`. `--eval-dir` accepts only a folder inside the target, and `evals/` is outside the plugin. Each case names the plugin under test in its `prompt.md`:
+
+```yaml
+plugins: ["../../../plugins/autodesk-skills"]
+```
+
+The path is relative to the case folder. Add this line to each new case. Without it, no plugin loads for the case.
 
 `--case` takes one pattern. A brace or a character class does not work.
 
@@ -99,6 +109,7 @@ The grant applies to every case and to both arms. A grant such as `WebFetch` can
 ## Rules for every suite
 
 - At least 1 case must not fire the skill.
+- Each case has the `plugins` line that names the plugin under test.
 - Each case has at least 1 outcome grader. A `tool_used: Skill` grader alone is not enough.
 - `runs: 3` or more in each case.
 - The judge is a larger model than the agent model.
