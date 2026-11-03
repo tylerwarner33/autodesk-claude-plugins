@@ -6,6 +6,11 @@ The version is also in `.claude-plugin/plugin.json`. Claude updates an installed
 The newest version is first. The format is [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and [Semantic Versioning](https://semver.org/): a `Breaking` entry bumps the major version, an `Added` entry the minor version, and other entries the patch version.
 See [.agents/rules/changelog.md](.agents/rules/changelog.md).
 
+## [2.1.0] - 2026-11-03
+
+### Added
+- An eval suite for `aps-docs` in `evals/aps-docs/`. It has 7 cases (5 must use the skill, 2 must not), a quality spec, and a baseline of the measured uplift. See `evals/README.md` for how to run it.
+
 ## [2.0.2] - 2026-11-03
 
 ### Fixed
