@@ -14,6 +14,7 @@ The instructions a model needs to *use* a skill are in that skill's own `SKILL.m
 | Path | Contents |
 |---|---|
 | `.claude-plugin/marketplace.json` | The marketplace manifest |
+| `.claude-plugin/README.md`, `plugins/autodesk-skills/.claude-plugin/README.md`, `plugins/autodesk-skills/skills/README.md` | Links to the official Claude Code documentation for that folder. Keep a link current when its page moves. |
 | `plugins/autodesk-skills/` | The plugin. Only this folder installs on a user's machine. |
 | `plugins/autodesk-skills/.claude-plugin/plugin.json` | The plugin manifest |
 | `plugins/autodesk-skills/skills/<name>/` | One folder per skill: `SKILL.md`, and optional `references/`, `scripts/`, `assets/`, `tests/` |

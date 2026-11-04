@@ -48,7 +48,7 @@ Claude loads a skill by itself when a request matches it. To start one by name, 
 ```
 AGENTS.md                -> instructions for any coding agent that works on this repo
 .agents/rules/           -> on-demand rules listed in AGENTS.md
-.claude-plugin/          -> the marketplace manifest
+.claude-plugin/          -> the marketplace manifest, and a README with Claude docs links
 .github/                 -> CODEOWNERS (the required reviewer) and the PR validation workflow
 Docs/                    -> full documentation set
 evals/                   -> eval suites that measure what each skill adds (see evals/README.md)
