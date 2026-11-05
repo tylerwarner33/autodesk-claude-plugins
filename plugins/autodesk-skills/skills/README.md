@@ -17,6 +17,7 @@ Before you add or edit a skill, read `.agents/rules/skill-authoring.md`.
 | Plugin components: skills in a plugin | <https://code.claude.com/docs/en/plugins/components#skills> |
 | Test plugins with evals | <https://code.claude.com/docs/en/plugin-evals> |
 | Plugin structure and testing on claude.ai and in Cowork | <https://claude.com/docs/plugins/build> |
+| Agent Skills overview | <https://agentskills.io/home> |
 | Agent Skills specification | <https://agentskills.io/specification> |
 
 ## Validate

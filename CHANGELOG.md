@@ -6,6 +6,11 @@ The version is also in `plugins/autodesk-skills/.claude-plugin/plugin.json`. Cla
 The newest version is first. The format is [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and [Semantic Versioning](https://semver.org/): a `Breaking` entry bumps the major version, an `Added` entry the minor version, and other entries the patch version.
 See [.agents/rules/changelog.md](.agents/rules/changelog.md).
 
+## [2.2.1] - 2026-11-05
+
+### Changed
+- The `README.md` in the skills folder now also links to the Agent Skills overview page.
+
 ## [2.2.0] - 2026-11-04
 
 ### Added
