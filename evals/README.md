@@ -17,7 +17,7 @@ For the full `claude plugin eval` reference, see <https://code.claude.com/docs/e
 ```
 evals/
 ├── README.md                      (this file)
-└── <skill-name>/                  (same name as plugins/autodesk-skills/skills/<skill-name>/)
+└── <skill-name>/                  (same name as plugins/<plugin>/skills/<skill-name>/)
     ├── QUALITY-SPEC.md            (what "good" means for the skill; the graders follow it)
     ├── BASELINE.md                (the last measured Δ; committed)
     ├── NN-<case-slug>/
@@ -38,10 +38,10 @@ Runs that grant `Bash` need a sandbox backend. Native Windows has none, so such 
 | Run one suite | `claude plugin eval . --eval-dir evals/<skill-name> --ablation with-without --no-publish --no-scaffold --judge-model opus --allow-tools <grants>` |
 | Run one case | The same command, with `--case "01-*" --runs 1` added |
 
-The target is the repository root (`.`), not `plugins/autodesk-skills`. `--eval-dir` accepts only a folder inside the target, and `evals/` is outside the plugin. Each case names the plugin under test in its `prompt.md`:
+The target is the repository root (`.`), not `plugins/<plugin>`. `--eval-dir` accepts only a folder inside the target, and `evals/` is outside the plugins. Each case names the plugin under test in its `prompt.md`:
 
 ```yaml
-plugins: ["../../../plugins/autodesk-skills"]
+plugins: ["../../../plugins/aps-documentation"]
 ```
 
 The path is relative to the case folder. Add this line to each new case. Without it, no plugin loads for the case.

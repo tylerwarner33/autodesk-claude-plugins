@@ -1,0 +1,13 @@
+{
+  "name": "inventor-ilogic",
+  "version": "3.0.0",
+  "displayName": "Inventor iLogic",
+  "description": "How Autodesk Inventor iLogic rules behave when code changes a document: triggers, cost, rule text, and the Security Alert.",
+  "author": {
+    "name": "tylerwarner33"
+  },
+  "homepage": "https://github.com/tylerwarner33/autodesk-agent-skills",
+  "repository": "https://github.com/tylerwarner33/autodesk-agent-skills",
+  "license": "MIT",
+  "keywords": ["autodesk", "inventor", "ilogic", "rules", "parameters", "skills"]
+}

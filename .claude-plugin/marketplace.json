@@ -3,13 +3,34 @@
   "owner": {
     "name": "tylerwarner33"
   },
-  "description": "Autodesk Claude plugins of Tyler Warner, for Claude Code, claude.ai, the Claude desktop app, and Cowork.",
+  "description": "Autodesk agent skills of Tyler Warner, for Claude Code, claude.ai, the Claude desktop app, and Cowork.",
   "plugins": [
     {
-      "name": "autodesk-skills",
-      "source": "./plugins/autodesk-skills",
-      "description": "Skills for Autodesk Platform Services (APS) development.",
+      "name": "aps-documentation",
+      "source": "./plugins/aps-documentation",
+      "description": "Answers Autodesk Platform Services (APS) questions from the live APS documentation, with portal links.",
+      "category": "development"
+    },
+    {
+      "name": "inventor-api",
+      "source": "./plugins/inventor-api",
+      "description": "Autodesk Inventor API facts for code that drives Inventor: COM interop traps, modeling, and drawings.",
+      "category": "development"
+    },
+    {
+      "name": "inventor-ilogic",
+      "source": "./plugins/inventor-ilogic",
+      "description": "How Autodesk Inventor iLogic rules behave when code changes a document: triggers, cost, rule text, and the Security Alert.",
+      "category": "development"
+    },
+    {
+      "name": "inventor-data",
+      "source": "./plugins/inventor-data",
+      "description": "Autodesk Inventor projects, library paths, Vault read-only files, saved versions, model states, and copies.",
       "category": "development"
     }
-  ]
+  ],
+  "renames": {
+    "autodesk-skills": "aps-documentation"
+  }
 }

@@ -1,46 +1,48 @@
 # Setup Guide
 
-How to install, update, verify, and remove the `autodesk-skills` plugin.
-The plugin works in Claude Code, in chat on claude.ai and in the Claude desktop app, and in Cowork.
+How to install, update, verify, and remove the plugins of the `tylerwarner-autodesk` marketplace: `aps-documentation`, `inventor-api`, `inventor-ilogic`, and `inventor-data`. Install only the plugins that you need.
+The plugins work in Claude Code, in chat on claude.ai and in the Claude desktop app, and in Cowork.
 
 ## Requirements
 
 | Where | Requirement |
 |---|---|
-| All | Read access to `https://github.com/tylerwarner33/autodesk-claude-plugins`. |
+| All | Read access to `https://github.com/tylerwarner33/autodesk-agent-skills`. |
 | claude.ai, the desktop app, and Cowork | A Pro, Max, Team, or Enterprise plan. For the `aps-docs` skill: code execution, with network egress to `developer.doc.autodesk.com` and `developer.doc.config.autodesk.com`. |
 | Claude Code | Git. For the `aps-docs` skill: Python 3.9 or later on the PATH (as `python` or `python3`), and internet access. |
 
 ## Install in claude.ai, the desktop app, and Cowork
 
 1. Open **Customize > Plugins**.
-2. Select **Add > Add marketplace**, then enter `tylerwarner33/autodesk-claude-plugins`.
-3. Select the `autodesk-skills` plugin, then select **Add**.
+2. Select **Add > Add marketplace**, then enter `tylerwarner33/autodesk-agent-skills`.
+3. Select each plugin that you need, then select **Add**.
 4. Turn on code execution and network egress for the `aps-docs` skill:
    1. Open **Settings > Capabilities**.
    2. Turn on **Code execution and file creation**.
    3. Turn on network egress, and add `developer.doc.autodesk.com` and `developer.doc.config.autodesk.com` to the allowed domains (or allow all domains).
    4. Start a new chat. A setting does not change a chat that is open.
-5. Type `/` in the message box, then type `autodesk-skills`. Check that `aps-docs` is in the list.
+5. Type `/` in the message box, then type the plugin name (ex. `aps-documentation`). Check that its skills are in the list (ex. `aps-docs`).
 
 On a Team or Enterprise plan, an Owner can limit the marketplaces you can add and the network egress settings. If an option is not available, ask an Owner.
-The plugin syncs to Claude Code when Claude Code is signed in to the same account. Then you do not need the Claude Code install below.
+The plugins sync to Claude Code when Claude Code is signed in to the same account. Then you do not need the Claude Code install below.
 
 ## Install in Claude Code
 
 1. Add the marketplace.
 
    ```
-   claude plugin marketplace add tylerwarner33/autodesk-claude-plugins
+   claude plugin marketplace add tylerwarner33/autodesk-agent-skills
    ```
 
-2. Install the plugin.
+2. Install each plugin that you need.
 
    ```
-   claude plugin install autodesk-skills@tylerwarner-autodesk
+   claude plugin install <plugin>@tylerwarner-autodesk
    ```
 
-3. Start a new Claude Code session. Type `/autodesk-skills:` and check that `aps-docs` is in the list.
+   Ex. `claude plugin install inventor-api@tylerwarner-autodesk`. The plugins are `aps-documentation`, `inventor-api`, `inventor-ilogic`, and `inventor-data`.
+
+3. Start a new Claude Code session. Type `/<plugin>:` (ex. `/inventor-api:`) and check that its skills are in the list.
 
 ## Update
 
@@ -52,24 +54,24 @@ Open **Customize > Plugins**, open the marketplace, and select **Check for updat
 
 Run each command in order.
 
-1. Fetch the latest marketplace. This does not update the plugin.
+1. Fetch the latest marketplace. This does not update the plugins.
 
    ```
    claude plugin marketplace update tylerwarner-autodesk
    ```
 
-2. Install the new version of the plugin.
+2. Install the new version of each plugin.
 
    ```
-   claude plugin update autodesk-skills@tylerwarner-autodesk
+   claude plugin update <plugin>@tylerwarner-autodesk
    ```
 
 3. In an open session, run `/reload-plugins`.
 
 ## Verify
 
-- In claude.ai or the desktop app, open **Customize > Plugins > autodesk-skills**. The version must be the newest version in [CHANGELOG.md](../CHANGELOG.md).
-- In Claude Code, run `claude plugin list`. The list must show `autodesk-skills@tylerwarner-autodesk` with the newest version in [CHANGELOG.md](../CHANGELOG.md).
+- In claude.ai or the desktop app, open **Customize > Plugins > <plugin>**. The version must be the newest version in [CHANGELOG.md](../CHANGELOG.md).
+- In Claude Code, run `claude plugin list`. The list must show `<plugin>@tylerwarner-autodesk` with the newest version in [CHANGELOG.md](../CHANGELOG.md).
 
 ## Troubleshooting
 
@@ -82,14 +84,15 @@ Run each command in order.
 | `aps-docs` fails with "command not found" in Claude Code | Install Python 3.9 or later, and add it to the PATH. |
 | `aps-docs` asks for permission on each command in Claude Code | The `allowed-tools` pattern did not match the command. Approve it once for the session, or add `Bash(python *aps_docs.py*)` to your allow rules. |
 | An update does not arrive | `version` in `plugin.json` did not change. Compare it with the newest version in `CHANGELOG.md`. |
+| `Plugin "autodesk-skills" not cached` | The plugin `autodesk-skills` is now `aps-documentation` (version 3.0.0). Run `claude plugin marketplace update tylerwarner-autodesk`, then `claude plugin install aps-documentation@tylerwarner-autodesk` once. |
 
 ## Uninstall
 
-In claude.ai or the desktop app, open **Customize > Plugins > autodesk-skills**, open its menu, and select **Remove**.
+In claude.ai or the desktop app, open **Customize > Plugins > <plugin>**, open its menu, and select **Remove**.
 
 In Claude Code:
 
 ```
-claude plugin uninstall autodesk-skills@tylerwarner-autodesk
+claude plugin uninstall <plugin>@tylerwarner-autodesk
 claude plugin marketplace remove tylerwarner-autodesk
 ```

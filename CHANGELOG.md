@@ -1,10 +1,26 @@
 # Changelog
 
-The changes to the autodesk-claude-plugins skills and tooling that users see.
-Each pull request adds one section with a new version of the `autodesk-skills` plugin, so many versions can have the same date.
-The version is also in `plugins/autodesk-skills/.claude-plugin/plugin.json`. Claude updates an installed plugin when that version changes.
+The changes to the autodesk-agent-skills plugins and tooling that users see.
+Each pull request adds one section with a new version of every plugin, so many versions can have the same date.
+All plugins share one version, which is also in `plugins/<plugin>/.claude-plugin/plugin.json`. Claude updates an installed plugin when that version changes.
 The newest version is first. The format is [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and [Semantic Versioning](https://semver.org/): a `Breaking` entry bumps the major version, an `Added` entry the minor version, and other entries the patch version.
 See [.agents/rules/changelog.md](.agents/rules/changelog.md).
+
+## [3.0.0] - 2026-11-23
+
+### Breaking
+- The plugin `autodesk-skills` is now `aps-documentation`, and its skill is now `/aps-documentation:aps-docs`. Claude Code moves your settings to the new name. Run `claude plugin marketplace update tylerwarner-autodesk`, then `claude plugin install aps-documentation@tylerwarner-autodesk` once.
+- The repository is now `tylerwarner33/autodesk-agent-skills`. The old URL redirects. Use the new name in a new install. The marketplace name `tylerwarner-autodesk` does not change.
+
+### Added
+- The plugin `inventor-api`, with the skills `inventor-api-traps`, `inventor-modeling`, and `inventor-drawings`.
+- The plugin `inventor-ilogic`, with the skill `inventor-ilogic`.
+- The plugin `inventor-data`, with the skill `inventor-projects-and-files`.
+  - The Inventor skills come from the Autodesk Inventor MCP Server. They name only the Inventor API, so they work with any tool that drives Inventor.
+- A check in the PR validation workflow: each plugin is self-contained, and an Inventor skill names no tool or script helper of one MCP server.
+
+### Changed
+- All plugins share one version. Each pull request sets it in every `plugin.json`.
 
 ## [2.2.1] - 2026-11-05
 

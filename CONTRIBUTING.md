@@ -1,6 +1,6 @@
-# Contributing to autodesk-claude-plugins
+# Contributing to autodesk-agent-skills
 
-This repository is the `tylerwarner-autodesk` Claude plugin marketplace, for Claude Code, claude.ai, the Claude desktop app, and Cowork. It has one plugin now, `autodesk-skills`.
+This repository is the `tylerwarner-autodesk` Claude plugin marketplace, for Claude Code, claude.ai, the Claude desktop app, and Cowork. It has one plugin for each focus: `aps-documentation`, `inventor-api`, `inventor-ilogic`, and `inventor-data`.
 Read this document before you open a pull request.
 
 For how to write a skill, see [Docs/Contributing-Skills.md](Docs/Contributing-Skills.md).
@@ -10,19 +10,19 @@ For instructions to a coding agent that works on this repository, see [AGENTS.md
 ## Before you start
 
 - **Check the existing skills first.** A skill that is close to what you need may need a new section, not a new skill. See [Docs/Skill-Catalog.md](Docs/Skill-Catalog.md).
-- **Know that each version ships.** Claude updates the plugin when `version` in `plugin.json` changes. A merge to `main` that does not change it reaches nobody.
+- **Know that each version ships.** Claude updates a plugin when `version` in its `plugin.json` changes. A merge to `main` that does not change it reaches nobody.
 - **Know the review tier.** A skill with `scripts/` or `assets/`, a hook, or an MCP server runs code on the user machine. It is tier 2. Say so in the pull request description.
 
 ## Make the change
 
 1. Branch from `main`. Use a name that describes the change (ex. `feature/aps-auth-skill`, `fix/aps-docs-toc`).
 2. Make the change. Keep the diff small: one subject for each pull request.
-3. Add a new version to [CHANGELOG.md](CHANGELOG.md) and `plugins/autodesk-skills/.claude-plugin/plugin.json`. See [Changelog and version](#changelog-and-version).
+3. Add a new version to [CHANGELOG.md](CHANGELOG.md) and the `plugin.json` of every plugin. See [Changelog and version](#changelog-and-version).
 4. Test the change from the repository root. Each command must report no error and no warning in the manifests:
 
    ```
    claude plugin validate .
-   claude plugin validate plugins/autodesk-skills
+   claude plugin validate plugins/<plugin>
    ```
 
    For a skill, also do the steps in [Testing before you submit](Docs/Contributing-Skills.md#testing-before-you-submit).
@@ -31,7 +31,7 @@ For instructions to a coding agent that works on this repository, see [AGENTS.md
 
 ## Changelog and version
 
-`CHANGELOG.md` is where users see what changed. Each pull request is one new version of the plugin, with one section in `CHANGELOG.md`.
+`CHANGELOG.md` is where users see what changed. Each pull request is one new version of every plugin (all plugins share one version), with one section in `CHANGELOG.md`.
 
 1. Add a section on top of the newest one: `## [x.y.z] - <today>` (ex. `## [1.1.0] - 2026-11-02`).
 2. Put each entry under one of these subsections, in this order: `Breaking`, `Added`, `Changed`, `Fixed`, `Removed`, `Security`. Write what a user sees, not how the code changed.
@@ -43,7 +43,7 @@ For instructions to a coding agent that works on this repository, see [AGENTS.md
    | An `Added` entry, and no `Breaking` | Minor | 1.3.0 |
    | Only `Changed`, `Fixed`, `Removed`, or `Security` | Patch | 1.2.2 |
 
-4. Set the same version in `"version"` in `plugins/autodesk-skills/.claude-plugin/plugin.json`.
+4. Set the same version in `"version"` in `plugins/<plugin>/.claude-plugin/plugin.json` of every plugin.
 
 The full format is in [.agents/rules/changelog.md](.agents/rules/changelog.md).
 

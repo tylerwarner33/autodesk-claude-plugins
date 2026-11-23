@@ -1,6 +1,6 @@
 # Plugin manifest
 
-This folder holds `plugin.json`, the manifest of the `autodesk-skills` plugin.
+This folder holds `plugin.json`, the manifest of the `inventor-data` plugin.
 The manifest gives the plugin its name and its version.
 Put only `plugin.json` in this folder. Claude does not load a component that is saved here.
 Components, such as `skills/`, go in the plugin root, next to this folder.
@@ -28,5 +28,5 @@ Before you edit `plugin.json`, read `.agents/rules/plugin-manifests.md` and `.ag
 Run this command from the repository root:
 
 ```
-claude plugin validate plugins/autodesk-skills
+claude plugin validate plugins/inventor-data
 ```

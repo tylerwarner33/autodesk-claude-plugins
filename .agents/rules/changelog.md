@@ -3,7 +3,7 @@ name: Changelog
 description: How each pull request adds a new plugin version to CHANGELOG.md and plugin.json, and the format
 triggers:
   - Before you create or update a pull request
-  - Editing CHANGELOG.md, or the version in plugins/autodesk-skills/.claude-plugin/plugin.json
+  - Editing CHANGELOG.md, or the version in plugins/<plugin>/.claude-plugin/plugin.json
 globs:
   - "CHANGELOG.md"
   - "plugins/*/.claude-plugin/plugin.json"
@@ -11,10 +11,12 @@ globs:
 
 ## Why each pull request adds a version
 
-Each pull request is one new version of the `autodesk-skills` plugin. The version is in 2 places, and they must be the same:
+Each pull request is one new version of every plugin. All plugins share one version, so a user never has to compare versions across plugins. The version is in these places, and they must be the same:
 
 - The newest section of `CHANGELOG.md`, where users see what changed.
-- `"version"` in `plugins/autodesk-skills/.claude-plugin/plugin.json`. Claude updates an installed plugin only when this value changes. A merge that does not change it reaches nobody.
+- `"version"` in `plugins/<plugin>/.claude-plugin/plugin.json` of **every** plugin. Claude updates an installed plugin only when this value changes. A merge that does not change it reaches nobody.
+
+A plugin that did not change also gets the new version. Its users get an update with no change, which does no harm.
 
 A change that users do not see (ex. a docs fix) is still a patch version with a short entry.
 Many pull requests can merge on the same day. Each one has its own version.
@@ -25,10 +27,10 @@ Many pull requests can merge on the same day. Each one has its own version.
 ## [1.3.0] - 2026-10-20
 
 ### Added
-- A new skill, option, or document. ([PR #12](https://github.com/tylerwarner33/autodesk-claude-plugins/pull/12))
+- A new skill, option, or document. ([PR #12](https://github.com/tylerwarner33/autodesk-agent-skills/pull/12))
 
 ### Fixed
-- A defect that is corrected. ([PR #12](https://github.com/tylerwarner33/autodesk-claude-plugins/pull/12))
+- A defect that is corrected. ([PR #12](https://github.com/tylerwarner33/autodesk-agent-skills/pull/12))
 
 ## [1.2.1] - 2026-10-20
 ```
@@ -64,7 +66,7 @@ The subsections of your section decide the version. Start from the newest versio
 
 1. Find the newest version on `main`: the first `## [` heading in `CHANGELOG.md`.
 2. Write your entries in a new section on top of it. Choose the version from the table above, and use today's date.
-3. Set the same version in `"version"` in `plugins/autodesk-skills/.claude-plugin/plugin.json`.
+3. Set the same version in `"version"` in `plugins/<plugin>/.claude-plugin/plugin.json` of every plugin.
 4. After you create the pull request, add the PR link to each entry (optional).
 
 When another pull request merges first, merge the latest `main` into your branch, put your section on top of the other one, and compute your version again.
