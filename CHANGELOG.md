@@ -9,18 +9,18 @@ See [.agents/rules/changelog.md](.agents/rules/changelog.md).
 ## [3.0.0] - 2026-11-23
 
 ### Breaking
-- The plugin `autodesk-skills` is now `aps-documentation`, and its skill is now `/aps-documentation:aps-docs`. Claude Code moves your settings to the new name. Run `claude plugin marketplace update tylerwarner-autodesk`, then `claude plugin install aps-documentation@tylerwarner-autodesk` once.
-- The repository is now `tylerwarner33/autodesk-agent-skills`. The old URL redirects. Use the new name in a new install. The marketplace name `tylerwarner-autodesk` does not change.
+- The plugin `autodesk-skills` is now `aps-documentation`, and its skill is now `/aps-documentation:aps-docs`. Claude Code moves your settings to the new name. Run `claude plugin marketplace update tylerwarner-autodesk`, then `claude plugin install aps-documentation@tylerwarner-autodesk` once. ([PR #12](https://github.com/tylerwarner33/autodesk-agent-skills/pull/12))
+- The repository is now `tylerwarner33/autodesk-agent-skills`. The old URL redirects. Use the new name in a new install. The marketplace name `tylerwarner-autodesk` does not change. ([PR #12](https://github.com/tylerwarner33/autodesk-agent-skills/pull/12))
 
 ### Added
-- The plugin `inventor-api`, with the skills `inventor-api-traps`, `inventor-modeling`, and `inventor-drawings`.
-- The plugin `inventor-ilogic`, with the skill `inventor-ilogic`.
-- The plugin `inventor-data`, with the skill `inventor-projects-and-files`.
+- The plugin `inventor-api`, with the skills `inventor-api-traps`, `inventor-modeling`, and `inventor-drawings`. ([PR #12](https://github.com/tylerwarner33/autodesk-agent-skills/pull/12))
+- The plugin `inventor-ilogic`, with the skill `inventor-ilogic`. ([PR #12](https://github.com/tylerwarner33/autodesk-agent-skills/pull/12))
+- The plugin `inventor-data`, with the skill `inventor-projects-and-files`. ([PR #12](https://github.com/tylerwarner33/autodesk-agent-skills/pull/12))
   - The Inventor skills come from the Autodesk Inventor MCP Server. They name only the Inventor API, so they work with any tool that drives Inventor.
-- A check in the PR validation workflow: each plugin is self-contained, and an Inventor skill names no tool or script helper of one MCP server.
+- A check in the PR validation workflow: each plugin is self-contained, and an Inventor skill names no tool or script helper of one MCP server. ([PR #12](https://github.com/tylerwarner33/autodesk-agent-skills/pull/12))
 
 ### Changed
-- All plugins share one version. Each pull request sets it in every `plugin.json`.
+- All plugins share one version. Each pull request sets it in every `plugin.json`. ([PR #12](https://github.com/tylerwarner33/autodesk-agent-skills/pull/12))
 
 ## [2.2.1] - 2026-11-05
 
