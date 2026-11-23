@@ -13,9 +13,9 @@
 	   the future. Many sections can have the same date. Each section has one or
 	   more subsections, in this order: Breaking, Added, Changed, Fixed, Removed,
 	   Security. Each subsection has one or more '- ' entries.
-	2. The newest version is the 'version' in
-	   plugins/autodesk-skills/.claude-plugin/plugin.json. Claude Code updates an
-	   installed plugin only when that version changes.
+	2. The newest version is the 'version' in each
+	   plugins/<plugin>/.claude-plugin/plugin.json. All plugins share one version.
+	   Claude Code updates an installed plugin only when that version changes.
 	3. With -BaseRef: the pull request adds exactly one section on top of the
 	   newest section of BaseRef, and its version is the next one:
 	   a Breaking entry bumps the major version, an Added entry the minor
@@ -42,10 +42,12 @@ param(
 
 $ErrorActionPreference = 'Stop'
 $errors = 0
+# .NET resolves a relative path from the process folder, not from the PowerShell location.
+$SourcesDirectory = (Resolve-Path -LiteralPath $SourcesDirectory).Path
 $file = 'CHANGELOG.md'
 $subsections = @('Breaking', 'Added', 'Changed', 'Fixed', 'Removed', 'Security')
 $headingFormat = '## [x.y.z] - yyyy-MM-dd'
-$manifestFile = 'plugins/autodesk-skills/.claude-plugin/plugin.json'
+$manifestFile = 'plugins/*/.claude-plugin/plugin.json'
 
 function Write-PipelineError { param($msg) Write-Host "::error::$msg"; $script:errors++ }
 
@@ -137,11 +139,16 @@ $newest = $sections[0]
 Write-Host "Checked: $file format ($($sections.Count) versions, newest $($newest.Version))"
 
 # --- 2. The plugin version -----------------------------------------------------------
-$manifest = Get-Content -LiteralPath (Join-Path $SourcesDirectory $manifestFile) -Raw | ConvertFrom-Json
-if ("$($manifest.version)" -cne "$($newest.Version)") {
-	Write-PipelineError "$manifestFile has version '$($manifest.version)', but the newest $file version is $($newest.Version). Use the same version in both files."
+$manifests = @(Get-ChildItem -Path (Join-Path $SourcesDirectory $manifestFile) -File)
+if ($manifests.Count -eq 0) { Write-PipelineError "No plugin has a $manifestFile." }
+foreach ($manifestPath in $manifests) {
+	$relative = [System.IO.Path]::GetRelativePath($SourcesDirectory, $manifestPath.FullName).Replace('\', '/')
+	$manifest = Get-Content -LiteralPath $manifestPath.FullName -Raw | ConvertFrom-Json
+	if ("$($manifest.version)" -cne "$($newest.Version)") {
+		Write-PipelineError "$relative has version '$($manifest.version)', but the newest $file version is $($newest.Version). Use the same version in every plugin.json and in $file."
+	}
+	Write-Host "Checked: $relative version ($($manifest.version))"
 }
-Write-Host "Checked: $manifestFile version ($($manifest.version))"
 
 # --- 3. The pull request adds the next version ---------------------------------------
 if ($BaseRef) {

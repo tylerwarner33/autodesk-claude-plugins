@@ -1,0 +1,8 @@
+{
+  "name": "inventor-api",
+  "version": "3.0.0",
+  "description": "Autodesk Inventor API facts for code that drives Inventor: COM interop traps, modeling, and drawings.",
+  "author": {
+    "name": "tylerwarner33"
+  }
+}

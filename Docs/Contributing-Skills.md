@@ -1,13 +1,13 @@
 # Contributing Skills
 
 How to author, test, and submit a skill to this repo.
-A skill is part of the `autodesk-skills` Claude plugin. Claude installs a new version when `version` in `plugin.json` changes.
+A skill is part of one Claude plugin of this marketplace: `aps-documentation`, `inventor-api`, `inventor-ilogic`, or `inventor-data`. Put it in the plugin whose focus fits, or add a plugin for a new focus (see `.agents/rules/plugin-manifests.md`). Claude installs a new version when `version` in `plugin.json` changes.
 A skill must work in Claude Code, in chat on claude.ai and in the desktop app, and in Cowork. See [Claude-Plugin-Distribution.md](./Claude-Plugin-Distribution.md#surfaces).
 
 ## Anatomy of a skill
 
 ```
-plugins/autodesk-skills/skills/
+plugins/<plugin>/skills/
 └── my-skill/
     ├── SKILL.md            <- required: frontmatter + guidance
     ├── references/         <- optional: supporting docs loaded on demand
@@ -22,7 +22,10 @@ The installed folder name has the plugin version in it, so it changes with each 
 Chat on claude.ai does not replace `${CLAUDE_SKILL_DIR}`. It copies the skill folder into the code execution sandbox. So `SKILL.md` must also tell Claude to use the path relative to the folder of `SKILL.md`.
 A script that uses the network needs network egress in chat and Cowork. Name each domain in `compatibility`.
 
-The folder name is the skill name. Do not add an `autodesk-skills-` prefix: Claude Code shows the skill `my-skill` as `/autodesk-skills:my-skill`.
+The folder name is the skill name. Start it with the product (ex. `inventor-modeling`, `aps-docs`). Claude Code shows it with the plugin as a prefix (`/inventor-api:inventor-modeling`), but other hosts show the skill name alone.
+
+A skill names only the skills of its own plugin, because a user can install one plugin without the others.
+A skill in an `inventor-*` plugin names only the Inventor API, never the tools or the script helpers of one MCP server, so it works with any tool that drives Inventor. See `.agents/rules/skill-authoring.md`.
 
 `SKILL.md` frontmatter:
 
@@ -61,19 +64,20 @@ Frontmatter limits:
 
 1. From the repository root, start Claude Code with your working folder as the plugin. Nothing is installed:
    ```
-   claude --plugin-dir plugins/autodesk-skills
+   claude --plugin-dir plugins/<plugin>
    ```
 2. Phrase a request the way a user would - do not name the skill. Confirm Claude picks it up. After each edit, run `/reload-plugins`.
 3. Run the workflow end to end at least once.
-4. From the repository root, run `claude plugin validate plugins/autodesk-skills`. It must report no error and no warning in the manifests and the skills.
-5. If the skill has `scripts/`, run its tests from the skill folder: `python -m unittest discover -s tests`.
-6. If the skill has `scripts/`, also test it in a claude.ai chat. See [Claude-Plugin-Distribution.md](./Claude-Plugin-Distribution.md#claudeai-and-cowork).
+4. From the repository root, run `claude plugin validate plugins/<plugin>`. It must report no error and no warning in the manifests and the skills.
+5. From the repository root, run `./Pipelines/Scripts/Test-SkillPortability.ps1 -SourcesDirectory .` in PowerShell 7.
+6. If the skill has `scripts/`, run its tests from the skill folder: `python -m unittest discover -s tests`.
+7. If the skill has `scripts/`, also test it in a claude.ai chat. See [Claude-Plugin-Distribution.md](./Claude-Plugin-Distribution.md#claudeai-and-cowork).
 
 ## Submitting
 
-1. Branch from `main`, add your skill under `plugins/autodesk-skills/skills/<kebab-case-name>/`.
+1. Branch from `main`, add your skill under `plugins/<plugin>/skills/<kebab-case-name>/`.
 2. Add a row to the skills table in the repo `README.md`, and a section for the skill in `Docs/Skill-Catalog.md`.
-3. Add a new minor version to `CHANGELOG.md`, with the skill under `### Added`, and set the same version in `plugins/autodesk-skills/.claude-plugin/plugin.json` (see [CONTRIBUTING.md](../CONTRIBUTING.md#changelog-and-version)). A skill folder has no changelog of its own.
+3. Add a new minor version to `CHANGELOG.md`, with the skill under `### Added`, and set the same version in the `plugin.json` of every plugin (see [CONTRIBUTING.md](../CONTRIBUTING.md#changelog-and-version)). A skill folder has no changelog of its own.
 4. Open a PR. Describe what the skill does and paste a short transcript snippet showing it triggering correctly.
 5. Read the full diff. A skill with `scripts/` or `assets/` is tier 2: say so in the PR description (see [Security-And-Governance.md](./Security-And-Governance.md#content-risk-tiers)).
 
@@ -81,6 +85,6 @@ To try a branch before it merges, see [Claude-Plugin-Distribution.md](./Claude-P
 
 ## Other AI clients
 
-The plugin is for Claude (Claude Code, claude.ai, the desktop app, and Cowork). GitHub Copilot, Codex, and Cursor do not read Claude plugins.
+The plugins load in Claude (Claude Code, claude.ai, the desktop app, and Cowork), OpenAI Codex, and Cursor, from one skill folder and a manifest for each host. A new plugin needs all three manifests: see [Claude-Plugin-Distribution.md](./Claude-Plugin-Distribution.md#other-hosts). GitHub Copilot does not read these plugins.
 Do not mirror a skill into `.github/instructions/` or any other client-specific file.
 Instructions for agents that work on *this repo* are in `AGENTS.md` and `.agents/rules/` - see [Agent-Instructions.md](./Agent-Instructions.md).

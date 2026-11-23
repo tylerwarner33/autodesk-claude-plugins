@@ -1,0 +1,20 @@
+{
+  "name": "aps-documentation",
+  "version": "3.0.0",
+  "description": "Answers Autodesk Platform Services (APS) questions from the live APS documentation, with portal links.",
+  "author": { "name": "tylerwarner33", "url": "https://github.com/tylerwarner33" },
+  "homepage": "https://github.com/tylerwarner33/autodesk-agent-skills",
+  "repository": "https://github.com/tylerwarner33/autodesk-agent-skills",
+  "license": "MIT",
+  "keywords": ["autodesk", "aps", "forge", "documentation", "skills"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "APS Documentation",
+    "shortDescription": "APS answers from live docs",
+    "longDescription": "Answers Autodesk Platform Services (APS, formerly Forge) questions from the live APS documentation, not from memory: it finds the right API, reads its pages, and gives portal links. Covers Data Management, Model Derivative, Viewer, Authentication, Webhooks, ACC, BIM 360, Design Automation, and the other APS APIs. Needs Python 3.9 or later and network access to developer.doc.autodesk.com.",
+    "developerName": "tylerwarner33",
+    "category": "Developer Tools",
+    "capabilities": [],
+    "defaultPrompt": ["Which APS API and scope do I need to list the hubs of a user?"]
+  }
+}

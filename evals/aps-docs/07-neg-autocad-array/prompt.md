@@ -4,6 +4,6 @@ timeout_seconds: 90
 allowed_tools: [Skill]
 model: sonnet
 runs: 3
-plugins: ["../../../plugins/autodesk-skills"]
+plugins: ["../../../plugins/aps-documentation"]
 ---
 What is the AutoCAD command to create a polar array?

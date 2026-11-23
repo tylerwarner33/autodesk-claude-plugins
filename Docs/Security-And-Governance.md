@@ -51,7 +51,7 @@ When a second maintainer joins, add them to `CODEOWNERS` and remove the bypass, 
 If bad content ships to `main`:
 
 1. Revert the commit on `main` (`git revert`), and bump the version so that installed copies update.
-2. Run `claude plugin update autodesk-skills@tylerwarner-autodesk` on each machine that installed it, and restart Claude Code. To stop the plugin until the revert is in, run `claude plugin disable autodesk-skills@tylerwarner-autodesk`.
+2. Run `claude plugin update <plugin>@tylerwarner-autodesk` for the plugin that had the bad content, on each machine that installed it, and restart Claude Code. To stop the plugin until the revert is in, run `claude plugin disable <plugin>@tylerwarner-autodesk`.
    In claude.ai or the desktop app, select **Check for updates** on the marketplace in **Customize > Plugins**. To stop the plugin until the revert is in, turn on **Disable plugin**.
 3. If the content was tier 2, review recent transcripts for unexpected behavior.
 4. Find how it passed review, and tighten the control.

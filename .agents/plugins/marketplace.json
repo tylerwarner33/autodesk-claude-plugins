@@ -1,0 +1,32 @@
+{
+  "name": "tylerwarner-autodesk",
+  "interface": {
+    "displayName": "Autodesk Agent Skills"
+  },
+  "plugins": [
+    {
+      "name": "aps-documentation",
+      "source": { "source": "local", "path": "./plugins/aps-documentation" },
+      "policy": { "installation": "AVAILABLE", "authentication": "ON_INSTALL" },
+      "category": "Developer Tools"
+    },
+    {
+      "name": "inventor-api",
+      "source": { "source": "local", "path": "./plugins/inventor-api" },
+      "policy": { "installation": "AVAILABLE", "authentication": "ON_INSTALL" },
+      "category": "Developer Tools"
+    },
+    {
+      "name": "inventor-ilogic",
+      "source": { "source": "local", "path": "./plugins/inventor-ilogic" },
+      "policy": { "installation": "AVAILABLE", "authentication": "ON_INSTALL" },
+      "category": "Developer Tools"
+    },
+    {
+      "name": "inventor-data",
+      "source": { "source": "local", "path": "./plugins/inventor-data" },
+      "policy": { "installation": "AVAILABLE", "authentication": "ON_INSTALL" },
+      "category": "Developer Tools"
+    }
+  ]
+}

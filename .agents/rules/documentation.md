@@ -36,7 +36,7 @@ The PR validation workflow runs the same check. Keep the 2 patterns the same.
 | Anything, in any pull request | `CHANGELOG.md` (see `.agents/rules/changelog.md`) |
 | The pull request process | `CONTRIBUTING.md`, `.agents/rules/changelog.md` |
 | A skill's purpose or name | `README.md` skills table, `Docs/Skill-Catalog.md` |
-| The plugin or the marketplace | `README.md`, `Docs/Claude-Plugin-Distribution.md`, `Docs/Setup-Guide.md` |
+| A plugin or the marketplace | `README.md`, `Docs/Claude-Plugin-Distribution.md`, `Docs/Setup-Guide.md` |
 | The repository layout | `README.md` repo structure, `AGENTS.md` layout table |
 | A document's name, or a new document | `README.md` documentation table |
 | A review tier | `Docs/Security-And-Governance.md`, `CONTRIBUTING.md` |

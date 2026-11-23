@@ -1,9 +1,12 @@
 # Skills
 
-Each folder here is one skill of the `autodesk-skills` plugin.
+Each folder here is one skill of the `inventor-api` plugin.
 A skill folder has a `SKILL.md` file, and can have `references/`, `scripts/`, `assets/`, and `tests/` folders.
 The folder name and the `name:` field in `SKILL.md` must be the same.
-Claude shows each skill with the plugin name as a prefix (ex. `/autodesk-skills:aps-docs`).
+Claude shows each skill with the plugin name as a prefix (ex. `/inventor-api:inventor-modeling`).
+
+The skills of the Inventor plugins must work with any tool that drives Inventor, so they name only the Inventor API.
+They must not name the tools or the script helpers of one MCP server. `Pipelines/Scripts/Test-SkillPortability.ps1` checks this.
 
 Before you add or edit a skill, read `.agents/rules/skill-authoring.md`.
 
@@ -25,5 +28,5 @@ Before you add or edit a skill, read `.agents/rules/skill-authoring.md`.
 Run this command from the repository root:
 
 ```
-claude plugin validate plugins/autodesk-skills
+claude plugin validate plugins/inventor-api
 ```

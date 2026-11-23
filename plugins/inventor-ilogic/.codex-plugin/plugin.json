@@ -1,0 +1,20 @@
+{
+  "name": "inventor-ilogic",
+  "version": "3.0.0",
+  "description": "How Autodesk Inventor iLogic rules behave when code changes a document: triggers, cost, rule text, and the Security Alert.",
+  "author": { "name": "tylerwarner33", "url": "https://github.com/tylerwarner33" },
+  "homepage": "https://github.com/tylerwarner33/autodesk-agent-skills",
+  "repository": "https://github.com/tylerwarner33/autodesk-agent-skills",
+  "license": "MIT",
+  "keywords": ["autodesk", "inventor", "ilogic", "rules", "parameters", "skills"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Inventor iLogic",
+    "shortDescription": "iLogic rules from code",
+    "longDescription": "How Autodesk Inventor iLogic rules behave when code changes a document through the API: parameter change triggers and their cost, turning rules off for a batch, reading and changing rule text, running a rule, rule error dialogs, and the iLogic Security Alert.",
+    "developerName": "tylerwarner33",
+    "category": "Developer Tools",
+    "capabilities": [],
+    "defaultPrompt": ["How do I change many Inventor parameters without running the iLogic rules each time?"]
+  }
+}

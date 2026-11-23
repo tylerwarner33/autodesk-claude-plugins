@@ -1,33 +1,67 @@
 ---
 name: Plugin Manifests
-description: Rules for the Claude plugin and marketplace manifests, and for any hook or MCP server added to the plugin
+description: Rules for the plugin and marketplace manifests of Claude, OpenAI Codex, and Cursor, for adding, renaming or removing a plugin, and for any hook or MCP server added to a plugin
 triggers:
-  - Editing .claude-plugin/marketplace.json or plugins/autodesk-skills/.claude-plugin/plugin.json
-  - Adding a hook, an MCP server, a subagent, or a command to the plugin
-  - Renaming the plugin or the marketplace
+  - Editing a marketplace.json (.claude-plugin/, .agents/plugins/, .cursor-plugin/) or a plugin.json (plugins/<plugin>/.claude-plugin/, .codex-plugin/, .cursor-plugin/)
+  - Adding a hook, an MCP server, a subagent, or a command to a plugin
+  - Adding, renaming, or removing a plugin, or renaming the marketplace
   - Editing .gitattributes
 globs:
   - ".claude-plugin/**"
   - "plugins/*/.claude-plugin/**"
+  - "plugins/*/.codex-plugin/**"
+  - "plugins/*/.cursor-plugin/**"
+  - ".agents/plugins/**"
+  - ".cursor-plugin/**"
   - ".gitattributes"
 ---
 
 ## Manifests
 
-- The repository root is the marketplace. The plugin is `plugins/autodesk-skills/`: `marketplace.json` lists it with `"source": "./plugins/autodesk-skills"`, and Claude installs only that folder. Keep files that users do not need (docs, evals, pipelines) outside `plugins/`.
-- `version` in `plugin.json` is the plugin version. Users get a change only when it changes, so each pull request bumps it, with the same version on top of `CHANGELOG.md`. Open `.agents/rules/changelog.md`. Do not put a `version` in `marketplace.json`: the one in `plugin.json` wins, and 2 copies can disagree.
-- Names are a contract: the marketplace `tylerwarner-autodesk` and the plugin `autodesk-skills`. Skills show as `/autodesk-skills:<skill>`, and the install id is `autodesk-skills@tylerwarner-autodesk`.
-- The marketplace is for Autodesk plugins only. A plugin that is not for Autodesk goes in a different marketplace. To add a second Autodesk plugin, add `plugins/<name>/` with its own `.claude-plugin/plugin.json` and `LICENSE`, and add an entry with `"source": "./plugins/<name>"`. A rename changes `extraKnownMarketplaces` on each machine and the docs. Do it in one pull request.
+- The repository root is the marketplace. Each plugin is `plugins/<plugin>/`: `marketplace.json` lists it with `"source": "./plugins/<plugin>"`, and Claude installs only that folder. Keep files that users do not need (docs, evals, pipelines) outside `plugins/`.
+- `version` in `plugin.json` is the plugin version. All plugins share one version. Users get a change only when it changes, so each pull request bumps it in every `plugin.json`, with the same version on top of `CHANGELOG.md`. Open `.agents/rules/changelog.md`. Do not put a `version` in `marketplace.json`: the one in `plugin.json` wins, and 2 copies can disagree.
+- Names are a contract: the marketplace `tylerwarner-autodesk`, and the plugins `aps-documentation`, `inventor-api`, `inventor-ilogic`, and `inventor-data`. Skills show as `/<plugin>:<skill>`, and the install id is `<plugin>@tylerwarner-autodesk`.
+- Split plugins by focus, as `<product>-<area>` (ex. `inventor-ilogic`). Do not add a `-skills` suffix: the plugin name is the slash prefix of each skill, and a plugin can later also hold a hook or an MCP server.
+- The marketplace is for Autodesk plugins only. A plugin that is not for Autodesk goes in a different marketplace. To add an Autodesk plugin, add `plugins/<name>/` with its own `.claude-plugin/plugin.json` (with the shared version), `.codex-plugin/plugin.json`, `.cursor-plugin/plugin.json`, `.claude-plugin/README.md`, `skills/README.md`, and `LICENSE`. Add an entry for it to each of the 3 marketplaces, in the same order.
+
+## Manifests for other hosts
+
+Each host reads its own manifests. The skill folders are shared.
+
+| Host | Marketplace | Each plugin |
+|---|---|---|
+| Claude | `.claude-plugin/marketplace.json` | `.claude-plugin/plugin.json` |
+| OpenAI Codex | `.agents/plugins/marketplace.json` | `.codex-plugin/plugin.json` |
+| Cursor | `.cursor-plugin/marketplace.json` | `.cursor-plugin/plugin.json` |
+
+- The Claude manifests are the source of truth. Keep `name`, `version` and `description` the same in all three, and `interface.displayName` in Codex the same as `displayName` in Claude. `Pipelines/Scripts/Test-HostManifests.ps1` checks it, because no CLI validates the Codex or Cursor files.
+- A Codex manifest needs `"skills": "./skills/"` and an `interface` object. `displayName` and `shortDescription` have 30 characters or fewer.
+- A Codex marketplace entry uses `"source": { "source": "local", "path": "./plugins/<name>" }` and a `policy` with `installation` and `authentication`.
+- Do not add a `plugin.json` at the plugin root. Claude Code does not read it, and a reader can take it for the Claude manifest.
+- `renames` exists only in the Claude marketplace. A rename in Codex or Cursor is a new plugin for its users: say so in the `Breaking` entry.
+- See `Docs/Claude-Plugin-Distribution.md`, "Other hosts".
+
+## Rename or remove a plugin
+
+A plugin name is the install id on each machine, so a rename breaks each install. Do it only when the name is wrong, and in one pull request:
+
+1. Move the folder (`git mv plugins/<old> plugins/<new>`) and change `name` in its `plugin.json`.
+2. Add an entry to the top-level `renames` map in `marketplace.json`: `"<old>": "<new>"`. For a removed plugin, use `"<old>": null`. Treat the map as append-only history: never edit or delete an entry. For a second rename, add a new entry, because Claude Code follows the chain from the oldest name.
+3. Add a `Breaking` entry to `CHANGELOG.md`. Claude Code moves the settings to the new name, but a user of a marketplace from git must run `claude plugin install <new>@tylerwarner-autodesk` once.
+4. Change every doc, rule, and eval that names the old plugin. Leave the old name in the `CHANGELOG.md` history and in `evals/*/results/`.
+
+A rename of the marketplace changes `extraKnownMarketplaces` on each machine, and no `renames` map exists for it. Do not rename the marketplace.
+Reference: <https://code.claude.com/docs/en/plugins/host-marketplace>.
 - Keep MCP servers inline in `plugin.json`. A root `.mcp.json` would also be the project MCP file for each person who opens this repo.
 - A plugin cannot set `statusLine` or most other settings. Its `settings.json` uses only `agent` and `subagentStatusLine`.
-- `plugins/autodesk-skills/LICENSE` is a copy of the root `LICENSE`, because an installed copy has only the plugin folder. Keep the 2 files the same.
+- `plugins/<plugin>/LICENSE` is a copy of the root `LICENSE`, because an installed copy has only the plugin folder. Keep the 2 files the same.
 - Do not add a top-level `bin/` folder to a plugin. claude.ai and Cowork then refuse to install the plugin. Chat ignores hooks, agents, and local MCP servers. See `Docs/Claude-Plugin-Distribution.md#surfaces`.
 - Reference: <https://code.claude.com/docs/en/plugins/manifest-reference>.
 
 ## Tier 2
 
 A hook or an MCP server runs with the user's rights, outside the sandbox, and Claude Code does not ask before it runs it.
-The plugin has none now. Before you add one, update `Docs/Security-And-Governance.md` and say in the pull request description that the change is tier 2.
+No plugin has one now. Before you add one, update `Docs/Security-And-Governance.md` and say in the pull request description that the change is tier 2.
 Add a hook in `hooks/hooks.json` and start a script with `bash "${CLAUDE_PLUGIN_ROOT}/hooks/<file>.sh"`.
 
 ## Line endings
@@ -38,8 +72,8 @@ Add a hook in `hooks/hooks.json` and start a script with `bash "${CLAUDE_PLUGIN_
 
 ```
 claude plugin validate .
-claude plugin validate plugins/autodesk-skills
+claude plugin validate plugins/<plugin>
 ```
 
-The first command checks the marketplace. The second checks the plugin. Each must report no error and no warning in the manifests. The `ICON_MISSING` finding is for a listing in the plugin directory, and it does not fail.
-To load the working folder in a session without an install: `claude --plugin-dir plugins/autodesk-skills`, then `/reload-plugins` after each edit.
+The first command checks the marketplace. The second checks one plugin: run it for each plugin. Each must report no error and no warning in the manifests. The `ICON_MISSING` finding is for a listing in the plugin directory, and it does not fail.
+To load the working folder in a session without an install: `claude --plugin-dir plugins/<plugin>`, then `/reload-plugins` after each edit.

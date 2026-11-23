@@ -2,7 +2,7 @@
 
 This folder holds `marketplace.json`, the manifest of the `tylerwarner-autodesk` marketplace.
 A marketplace is a catalog. It lists plugins and tells Claude where to fetch each one.
-The plugin that this marketplace lists is in `plugins/autodesk-skills/`.
+The plugins that this marketplace lists are in `plugins/<plugin>/`: `aps-documentation`, `inventor-api`, `inventor-ilogic`, and `inventor-data`. The `renames` map keeps the history of plugin names.
 
 Before you edit `marketplace.json`, read `.agents/rules/plugin-manifests.md`.
 

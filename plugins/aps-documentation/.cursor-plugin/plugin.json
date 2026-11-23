@@ -1,0 +1,8 @@
+{
+  "name": "aps-documentation",
+  "version": "3.0.0",
+  "description": "Answers Autodesk Platform Services (APS) questions from the live APS documentation, with portal links.",
+  "author": {
+    "name": "tylerwarner33"
+  }
+}

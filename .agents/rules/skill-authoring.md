@@ -1,8 +1,8 @@
 ---
 name: Skill Authoring
-description: The skill folder layout and names, SKILL.md frontmatter, path variables, and how to validate and test a skill in the plugin
+description: The skill folder layout and names, SKILL.md frontmatter, path variables, and how to validate and test a skill in a plugin
 triggers:
-  - Creating a new skill or editing any file under plugins/autodesk-skills/skills/
+  - Creating a new skill or editing any file under plugins/<plugin>/skills/
   - Editing SKILL.md frontmatter (name, description, allowed-tools, compatibility, metadata)
   - Adding scripts/, assets/, or tests/ to a skill
   - claude plugin validate reports an error or warning
@@ -12,9 +12,21 @@ globs:
 
 ## Folder and name
 
-- One folder per skill: `plugins/autodesk-skills/skills/<name>/SKILL.md`. The folder name and the `name:` field must be identical.
-- Names are lowercase kebab-case, with no `autodesk-skills-` prefix. The plugin name is the prefix: Claude Code shows the skill `aps-docs` as `/autodesk-skills:aps-docs`.
+- One folder per skill: `plugins/<plugin>/skills/<name>/SKILL.md`. The folder name and the `name:` field must be identical.
+- Names are lowercase kebab-case, and start with the product (ex. `aps-docs`, `inventor-modeling`). Claude Code shows the plugin name as a prefix (`/inventor-api:inventor-modeling`), but other hosts and a list of skills from several sources do not. The product in the name keeps the skill clear there, and keeps it apart from a skill of an Inventor MCP server with a similar topic.
 - A name says what the skill does. Do not use a name that only makes sense with the prefix (ex. `skills`).
+- A skill names only the skills of its own plugin. A user can install one plugin without the others. When a fact from another plugin is needed, write it in this skill.
+
+## Inventor skills name only the Inventor API
+
+A skill in an `inventor-*` plugin must work with any tool that drives Inventor: an add-in, a plugin, a Design Automation app, or any Inventor MCP server.
+
+- Name Inventor API members (ex. `PartFeature.HealthStatus`), not the tools of one MCP server (ex. `inventor_health`).
+- Write the API calls in full. Do not use a script helper of one server (ex. `InTransaction`, `OpenOrReuseDocument`, `StartDeadline`).
+- Confirm each new API member in the Inventor API reference before you write it.
+- The steps of one server (which tool to call, what its result means) belong in that server's own skills.
+
+`Pipelines/Scripts/Test-SkillPortability.ps1` checks the tool names, the known helpers, and the skill names of other plugins.
 - Optional folders: `references/` (loaded on demand), `scripts/` (code the skill runs), `assets/` (templates, images), `tests/` (required when `scripts/` exists).
 
 ## Frontmatter
@@ -39,7 +51,7 @@ allowed-tools: >-
 ## Paths inside a skill
 
 Reference a bundled file as `"${CLAUDE_SKILL_DIR}/scripts/<file>"`. Never hard-code an install path.
-The plugin cache folder name has the plugin version (`~/.claude/plugins/cache/tylerwarner-autodesk/autodesk-skills/<version>/`), so it changes with each update.
+The plugin cache folder name has the plugin version (`~/.claude/plugins/cache/tylerwarner-autodesk/<plugin>/<version>/`), so it changes with each update.
 State in `SKILL.md` that `${CLAUDE_SKILL_DIR}` is the folder that holds `SKILL.md`.
 Claude Code and Cowork replace `${CLAUDE_SKILL_DIR}`. Chat on claude.ai does not: it copies the skill folder into the code execution sandbox. State in `SKILL.md` that, when the placeholder is not replaced, Claude uses the path relative to the folder of `SKILL.md`.
 
@@ -61,7 +73,7 @@ Diagrams belong in `Docs/Skill-Catalog.md`, not in `SKILL.md`.
 From the repository root:
 
 ```
-claude plugin validate plugins/autodesk-skills
+claude plugin validate plugins/<plugin>
 ```
 
 `validate` must report no error and no warning in the manifests and the skills. A skill change is also a new plugin version: open `.agents/rules/changelog.md`.
@@ -69,7 +81,7 @@ claude plugin validate plugins/autodesk-skills
 To test the skill in a session, load the working folder as the plugin. Nothing is installed:
 
 ```
-claude --plugin-dir plugins/autodesk-skills
+claude --plugin-dir plugins/<plugin>
 ```
 
 Ask for the task the way a user would, without the skill name, and check that the skill loads. After each edit, run `/reload-plugins`.

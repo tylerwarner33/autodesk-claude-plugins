@@ -1,0 +1,8 @@
+{
+  "name": "inventor-ilogic",
+  "version": "3.0.0",
+  "description": "How Autodesk Inventor iLogic rules behave when code changes a document: triggers, cost, rule text, and the Security Alert.",
+  "author": {
+    "name": "tylerwarner33"
+  }
+}
