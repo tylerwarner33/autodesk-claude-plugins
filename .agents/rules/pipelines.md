@@ -32,6 +32,7 @@ Say in the pull request description that the change is tier 2 (see `Docs/Securit
 - `Test-SkillFrontmatter.ps1` has its own small YAML parser, so the workflow needs no module. It must report a form that it cannot read as an error, and never pass a value that it did not read. Use the case-sensitive operators (`-cmatch`, `-cne`, `-cin`) for names: `-match` and `-ne` ignore case.
 - `Test-SkillPortability.ps1` checks that a skill names only the skills of its own plugin, and that a skill of an `inventor-*` plugin names no MCP server tool (`inventor_<name>`) and no script helper of one server. Add a helper to `$serverWords` when an Inventor MCP server adds one.
 - `Test-PluginManifest.ps1` runs `claude plugin validate` on the repository root (the marketplace) and on each folder under `plugins/`. It fails on any error or warning in the manifests. The plugin directory findings (ex. `ICON_MISSING`) do not fail.
+- `Test-HostManifests.ps1` checks that the Codex (`.agents/plugins/`, `.codex-plugin/`) and Cursor (`.cursor-plugin/`) manifests list the same plugins as the Claude manifests, with the same name, version and description, and the fields that each host requires. No CLI validates those files, so this script is the only check.
 - `Test-Changelog.ps1` checks the `CHANGELOG.md` format, and that its newest version is the `version` in the `plugin.json` of every plugin, on every run. In a pull request run it also needs exactly one new section with the next version: it compares `HEAD`, the merge commit that GitHub makes, with `HEAD^1`, the target branch. Keep `fetch-depth: 2` or more. The format is in `.agents/rules/changelog.md`.
 - The Claude Code CLI version is pinned in `CLAUDE_CODE_VERSION`. Update it in a pull request, and run the checks locally with the new version first.
 - Keep the forbidden character pattern the same as in `.agents/rules/documentation.md`.
@@ -44,6 +45,7 @@ From the repository root, in PowerShell 7:
 ./Pipelines/Scripts/Test-SkillFrontmatter.ps1 -SourcesDirectory .
 ./Pipelines/Scripts/Test-SkillPortability.ps1 -SourcesDirectory .
 ./Pipelines/Scripts/Test-PluginManifest.ps1 -SourcesDirectory .
+./Pipelines/Scripts/Test-HostManifests.ps1 -SourcesDirectory .
 ./Pipelines/Scripts/Test-Changelog.ps1 -SourcesDirectory . -BaseRef origin/main
 ```
 

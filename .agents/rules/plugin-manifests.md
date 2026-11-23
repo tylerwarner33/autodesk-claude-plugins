@@ -1,14 +1,18 @@
 ---
 name: Plugin Manifests
-description: Rules for the Claude plugin and marketplace manifests, for adding, renaming or removing a plugin, and for any hook or MCP server added to a plugin
+description: Rules for the plugin and marketplace manifests of Claude, OpenAI Codex, and Cursor, for adding, renaming or removing a plugin, and for any hook or MCP server added to a plugin
 triggers:
-  - Editing .claude-plugin/marketplace.json or plugins/<plugin>/.claude-plugin/plugin.json
+  - Editing a marketplace.json (.claude-plugin/, .agents/plugins/, .cursor-plugin/) or a plugin.json (plugins/<plugin>/.claude-plugin/, .codex-plugin/, .cursor-plugin/)
   - Adding a hook, an MCP server, a subagent, or a command to a plugin
   - Adding, renaming, or removing a plugin, or renaming the marketplace
   - Editing .gitattributes
 globs:
   - ".claude-plugin/**"
   - "plugins/*/.claude-plugin/**"
+  - "plugins/*/.codex-plugin/**"
+  - "plugins/*/.cursor-plugin/**"
+  - ".agents/plugins/**"
+  - ".cursor-plugin/**"
   - ".gitattributes"
 ---
 
@@ -18,7 +22,24 @@ globs:
 - `version` in `plugin.json` is the plugin version. All plugins share one version. Users get a change only when it changes, so each pull request bumps it in every `plugin.json`, with the same version on top of `CHANGELOG.md`. Open `.agents/rules/changelog.md`. Do not put a `version` in `marketplace.json`: the one in `plugin.json` wins, and 2 copies can disagree.
 - Names are a contract: the marketplace `tylerwarner-autodesk`, and the plugins `aps-documentation`, `inventor-api`, `inventor-ilogic`, and `inventor-data`. Skills show as `/<plugin>:<skill>`, and the install id is `<plugin>@tylerwarner-autodesk`.
 - Split plugins by focus, as `<product>-<area>` (ex. `inventor-ilogic`). Do not add a `-skills` suffix: the plugin name is the slash prefix of each skill, and a plugin can later also hold a hook or an MCP server.
-- The marketplace is for Autodesk plugins only. A plugin that is not for Autodesk goes in a different marketplace. To add an Autodesk plugin, add `plugins/<name>/` with its own `.claude-plugin/plugin.json` (with the shared version), `.claude-plugin/README.md`, `skills/README.md`, and `LICENSE`, and add an entry with `"source": "./plugins/<name>"`.
+- The marketplace is for Autodesk plugins only. A plugin that is not for Autodesk goes in a different marketplace. To add an Autodesk plugin, add `plugins/<name>/` with its own `.claude-plugin/plugin.json` (with the shared version), `.codex-plugin/plugin.json`, `.cursor-plugin/plugin.json`, `.claude-plugin/README.md`, `skills/README.md`, and `LICENSE`. Add an entry for it to each of the 3 marketplaces, in the same order.
+
+## Manifests for other hosts
+
+Each host reads its own manifests. The skill folders are shared.
+
+| Host | Marketplace | Each plugin |
+|---|---|---|
+| Claude | `.claude-plugin/marketplace.json` | `.claude-plugin/plugin.json` |
+| OpenAI Codex | `.agents/plugins/marketplace.json` | `.codex-plugin/plugin.json` |
+| Cursor | `.cursor-plugin/marketplace.json` | `.cursor-plugin/plugin.json` |
+
+- The Claude manifests are the source of truth. Keep `name`, `version` and `description` the same in all three, and `interface.displayName` in Codex the same as `displayName` in Claude. `Pipelines/Scripts/Test-HostManifests.ps1` checks it, because no CLI validates the Codex or Cursor files.
+- A Codex manifest needs `"skills": "./skills/"` and an `interface` object. `displayName` and `shortDescription` have 30 characters or fewer.
+- A Codex marketplace entry uses `"source": { "source": "local", "path": "./plugins/<name>" }` and a `policy` with `installation` and `authentication`.
+- Do not add a `plugin.json` at the plugin root. Claude Code does not read it, and a reader can take it for the Claude manifest.
+- `renames` exists only in the Claude marketplace. A rename in Codex or Cursor is a new plugin for its users: say so in the `Breaking` entry.
+- See `Docs/Claude-Plugin-Distribution.md`, "Other hosts".
 
 ## Rename or remove a plugin
 

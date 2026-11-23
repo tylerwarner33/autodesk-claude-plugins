@@ -1,12 +1,12 @@
 # Autodesk Agent Skills
 
-![Claude Surfaces](https://img.shields.io/badge/Claude-Code%20%7C%20claude.ai%20%7C%20Cowork-blue.svg)
+![Hosts](https://img.shields.io/badge/Hosts-Claude%20%7C%20Codex%20%7C%20Cursor-blue.svg)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Version](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Ftylerwarner33%2Fautodesk-agent-skills%2Fmain%2Fplugins%2Faps-documentation%2F.claude-plugin%2Fplugin.json&query=%24.version&label=version&color=brightgreen)](CHANGELOG.md)
 
 Agent skills for Autodesk development, in the [Agent Skills](https://agentskills.io) format, split into plugins by focus: Autodesk Platform Services (APS) documentation, the Inventor API, Inventor iLogic, and Inventor data management.
-This repository is a Claude plugin marketplace (`tylerwarner-autodesk`). Add it once, then add only the plugins that you need.
-The plugins work in Claude Code, in chat on claude.ai and in the Claude desktop app, and in Cowork.
+This repository is a plugin marketplace (`tylerwarner-autodesk`) for Claude, OpenAI Codex, and Cursor. Add it once, then add only the plugins that you need.
+The plugins work in Claude Code, in chat on claude.ai and in the Claude desktop app, in Cowork, in Codex, and in Cursor.
 The Inventor skills name only the Inventor API, so they work with any tool that drives Inventor: an add-in, a plugin, or an Inventor MCP server.
 This is a personal project. It is not made, endorsed, or supported by Autodesk.
 Design: [Claude-Plugin-Distribution.md](Docs/Claude-Plugin-Distribution.md).
@@ -37,6 +37,21 @@ claude plugin install inventor-data@tylerwarner-autodesk
 If you installed `autodesk-skills` before version 3.0.0, it is now `aps-documentation`. Run `claude plugin marketplace update tylerwarner-autodesk`, then `claude plugin install aps-documentation@tylerwarner-autodesk` once.
 
 To get updates, run `claude plugin marketplace update tylerwarner-autodesk`, then `claude plugin update <plugin>@tylerwarner-autodesk`, then `/reload-plugins` in a session.
+
+### OpenAI Codex
+
+```
+codex plugin marketplace add tylerwarner33/autodesk-agent-skills
+```
+
+Then start `codex`, run `/plugins`, open the `Autodesk Agent Skills` marketplace, and install the plugins that you need. Start a new session to load the skills.
+To get updates, run `codex plugin marketplace upgrade tylerwarner-autodesk`.
+
+### Cursor
+
+- **A team (Teams or Enterprise plan):** in the Cursor dashboard, open **Plugins & MCPs > Team Marketplaces > Add Marketplace > Import from Repo**, and paste `https://github.com/tylerwarner33/autodesk-agent-skills`.
+- **One person:** clone the repository to `~/.cursor/plugins/local/autodesk-agent-skills`, then restart Cursor or run **Developer: Reload Window**.
+
 Full steps and troubleshooting: [Docs/Setup-Guide.md](Docs/Setup-Guide.md).
 
 ## What's Included
@@ -68,12 +83,14 @@ Claude loads a skill by itself when a request matches it. To start one by name, 
 ```
 AGENTS.md                -> instructions for any coding agent that works on this repo
 .agents/rules/           -> on-demand rules listed in AGENTS.md
-.claude-plugin/          -> the marketplace manifest, and a README with Claude docs links
+.claude-plugin/          -> the Claude marketplace manifest, and a README with Claude docs links
+.agents/plugins/         -> the Codex marketplace manifest
+.cursor-plugin/          -> the Cursor marketplace manifest
 .github/                 -> CODEOWNERS (the required reviewer) and the PR validation workflow
 Docs/                    -> full documentation set
 evals/                   -> eval suites that measure what each skill adds (see evals/README.md)
 Pipelines/Scripts/       -> the checks that the PR validation workflow runs
-plugins/<plugin>/        -> one plugin: its manifest and skills. Only the plugin folder installs.
+plugins/<plugin>/        -> one plugin: a manifest for each host (.claude-plugin/, .codex-plugin/, .cursor-plugin/) and its skills. Only the plugin folder installs.
 ```
 
 ## Documentation

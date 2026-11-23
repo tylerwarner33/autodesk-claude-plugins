@@ -7,10 +7,12 @@
 #   1. The SKILL.md frontmatter (Pipelines/Scripts/Test-SkillFrontmatter.ps1)
 #   2. Each plugin is self-contained, and the Inventor skills name no MCP server
 #      tool (Pipelines/Scripts/Test-SkillPortability.ps1)
-#   3. The plugin and marketplace manifests (Pipelines/Scripts/Test-PluginManifest.ps1)
-#   4. The tests of every skill that has a tests/ folder
-#   5. No em dash, en dash, or "e.g." in the written content
-#   6. CHANGELOG.md and the plugin versions: the format, the same version in
+#   3. The Claude plugin and marketplace manifests (Pipelines/Scripts/Test-PluginManifest.ps1)
+#   4. The Codex and Cursor manifests match the Claude manifests
+#      (Pipelines/Scripts/Test-HostManifests.ps1)
+#   5. The tests of every skill that has a tests/ folder
+#   6. No em dash, en dash, or "e.g." in the written content
+#   7. CHANGELOG.md and the plugin versions: the format, the same version in
 #      each plugin.json, and in a pull request run, the next version
 #      (Pipelines/Scripts/Test-Changelog.ps1)
 #
@@ -72,6 +74,10 @@ jobs:
       - name: Validate Plugin Manifests
         shell: pwsh
         run: ./Pipelines/Scripts/Test-PluginManifest.ps1 -SourcesDirectory $env:GITHUB_WORKSPACE
+
+      - name: Validate Codex and Cursor Manifests
+        shell: pwsh
+        run: ./Pipelines/Scripts/Test-HostManifests.ps1 -SourcesDirectory $env:GITHUB_WORKSPACE
 
       # The skill scripts use only the Python standard library. The runner image
       # has Python 3.12.

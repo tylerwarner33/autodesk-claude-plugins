@@ -18,6 +18,8 @@ See [.agents/rules/changelog.md](.agents/rules/changelog.md).
 - The plugin `inventor-data`, with the skill `inventor-projects-and-files`. ([PR #12](https://github.com/tylerwarner33/autodesk-agent-skills/pull/12))
   - The Inventor skills come from the Autodesk Inventor MCP Server. They name only the Inventor API, so they work with any tool that drives Inventor.
 - A check in the PR validation workflow: each plugin is self-contained, and an Inventor skill names no tool or script helper of one MCP server. ([PR #12](https://github.com/tylerwarner33/autodesk-agent-skills/pull/12))
+- OpenAI Codex and Cursor can install the plugins. The repository is also a Codex marketplace (`.agents/plugins/marketplace.json`) and a Cursor marketplace (`.cursor-plugin/marketplace.json`), and each plugin has a Codex and a Cursor manifest. See the Setup Guide. ([PR #12](https://github.com/tylerwarner33/autodesk-agent-skills/pull/12))
+- A check in the PR validation workflow: the Codex and Cursor manifests have the same plugins, names, versions, and descriptions as the Claude manifests. ([PR #12](https://github.com/tylerwarner33/autodesk-agent-skills/pull/12))
 
 ### Changed
 - All plugins share one version. Each pull request sets it in every `plugin.json`. ([PR #12](https://github.com/tylerwarner33/autodesk-agent-skills/pull/12))

@@ -1,0 +1,31 @@
+{
+  "name": "tylerwarner-autodesk",
+  "owner": {
+    "name": "tylerwarner33"
+  },
+  "metadata": {
+    "description": "Autodesk agent skills of Tyler Warner: APS documentation, the Inventor API, Inventor iLogic, and Inventor data management."
+  },
+  "plugins": [
+    {
+      "name": "aps-documentation",
+      "source": "./plugins/aps-documentation",
+      "description": "Answers Autodesk Platform Services (APS) questions from the live APS documentation, with portal links."
+    },
+    {
+      "name": "inventor-api",
+      "source": "./plugins/inventor-api",
+      "description": "Autodesk Inventor API facts for code that drives Inventor: COM interop traps, modeling, and drawings."
+    },
+    {
+      "name": "inventor-ilogic",
+      "source": "./plugins/inventor-ilogic",
+      "description": "How Autodesk Inventor iLogic rules behave when code changes a document: triggers, cost, rule text, and the Security Alert."
+    },
+    {
+      "name": "inventor-data",
+      "source": "./plugins/inventor-data",
+      "description": "Autodesk Inventor projects, library paths, Vault read-only files, saved versions, model states, and copies."
+    }
+  ]
+}

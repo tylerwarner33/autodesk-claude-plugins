@@ -1,7 +1,7 @@
 # Setup Guide
 
 How to install, update, verify, and remove the plugins of the `tylerwarner-autodesk` marketplace: `aps-documentation`, `inventor-api`, `inventor-ilogic`, and `inventor-data`. Install only the plugins that you need.
-The plugins work in Claude Code, in chat on claude.ai and in the Claude desktop app, and in Cowork.
+The plugins work in Claude Code, in chat on claude.ai and in the Claude desktop app, in Cowork, in OpenAI Codex, and in Cursor.
 
 ## Requirements
 
@@ -10,6 +10,8 @@ The plugins work in Claude Code, in chat on claude.ai and in the Claude desktop 
 | All | Read access to `https://github.com/tylerwarner33/autodesk-agent-skills`. |
 | claude.ai, the desktop app, and Cowork | A Pro, Max, Team, or Enterprise plan. For the `aps-docs` skill: code execution, with network egress to `developer.doc.autodesk.com` and `developer.doc.config.autodesk.com`. |
 | Claude Code | Git. For the `aps-docs` skill: Python 3.9 or later on the PATH (as `python` or `python3`), and internet access. |
+| OpenAI Codex | A Codex CLI with plugin marketplaces (`codex plugin marketplace`). For the `aps-docs` skill: the same as Claude Code. |
+| Cursor | A Teams or Enterprise plan for a team marketplace, or Git for a local install. For the `aps-docs` skill: the same as Claude Code. |
 
 ## Install in claude.ai, the desktop app, and Cowork
 
@@ -43,6 +45,26 @@ The plugins sync to Claude Code when Claude Code is signed in to the same accoun
    Ex. `claude plugin install inventor-api@tylerwarner-autodesk`. The plugins are `aps-documentation`, `inventor-api`, `inventor-ilogic`, and `inventor-data`.
 
 3. Start a new Claude Code session. Type `/<plugin>:` (ex. `/inventor-api:`) and check that its skills are in the list.
+
+## Install in OpenAI Codex
+
+1. Add the marketplace. Codex reads `.agents/plugins/marketplace.json` from the repository.
+
+   ```
+   codex plugin marketplace add tylerwarner33/autodesk-agent-skills
+   ```
+
+2. Start `codex` and run `/plugins`. Open the `Autodesk Agent Skills` marketplace, and install each plugin that you need.
+3. Start a new session. A skill loads when a request matches its description.
+
+To update, run `codex plugin marketplace upgrade tylerwarner-autodesk`. To remove the marketplace, run `codex plugin marketplace remove tylerwarner-autodesk`.
+
+## Install in Cursor
+
+Cursor reads `.cursor-plugin/marketplace.json` from the repository, and `.cursor-plugin/plugin.json` from each plugin.
+
+- **A team (Teams or Enterprise plan):** in the Cursor dashboard, open **Plugins & MCPs**. In **Team Marketplaces**, select **Add Marketplace**, then **Import from Repo**, and paste `https://github.com/tylerwarner33/autodesk-agent-skills`. Each person then installs the plugins from **Customize**, for a project or for the user.
+- **One person:** clone the repository to `~/.cursor/plugins/local/autodesk-agent-skills`, then restart Cursor or run **Developer: Reload Window**. To update, run `git pull` in that folder and reload. On an Enterprise plan, an admin must turn on **Allow Local Plugin Imports**.
 
 ## Update
 

@@ -1,0 +1,20 @@
+{
+  "name": "inventor-data",
+  "version": "3.0.0",
+  "description": "Autodesk Inventor projects, library paths, Vault read-only files, saved versions, model states, and copies.",
+  "author": { "name": "tylerwarner33", "url": "https://github.com/tylerwarner33" },
+  "homepage": "https://github.com/tylerwarner33/autodesk-agent-skills",
+  "repository": "https://github.com/tylerwarner33/autodesk-agent-skills",
+  "license": "MIT",
+  "keywords": ["autodesk", "inventor", "vault", "projects", "files", "skills"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Inventor Data",
+    "shortDescription": "Inventor projects and files",
+    "longDescription": "Autodesk Inventor projects (.ipj), library paths, Vault read-only files, saved versions and migration, model states, Content Center parts, test copies and references, and which documents code may close.",
+    "developerName": "tylerwarner33",
+    "category": "Developer Tools",
+    "capabilities": [],
+    "defaultPrompt": ["Why does a write to my Inventor part fail with E_FAIL?"]
+  }
+}

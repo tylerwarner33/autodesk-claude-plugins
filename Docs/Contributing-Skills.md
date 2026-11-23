@@ -85,6 +85,6 @@ To try a branch before it merges, see [Claude-Plugin-Distribution.md](./Claude-P
 
 ## Other AI clients
 
-The plugins are for Claude (Claude Code, claude.ai, the desktop app, and Cowork). GitHub Copilot, Codex, and Cursor do not read Claude plugins.
+The plugins load in Claude (Claude Code, claude.ai, the desktop app, and Cowork), OpenAI Codex, and Cursor, from one skill folder and a manifest for each host. A new plugin needs all three manifests: see [Claude-Plugin-Distribution.md](./Claude-Plugin-Distribution.md#other-hosts). GitHub Copilot does not read these plugins.
 Do not mirror a skill into `.github/instructions/` or any other client-specific file.
 Instructions for agents that work on *this repo* are in `AGENTS.md` and `.agents/rules/` - see [Agent-Instructions.md](./Agent-Instructions.md).

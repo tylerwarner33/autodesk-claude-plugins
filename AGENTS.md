@@ -14,10 +14,10 @@ The instructions a model needs to *use* a skill are in that skill's own `SKILL.m
 
 | Path | Contents |
 |---|---|
-| `.claude-plugin/marketplace.json` | The marketplace manifest |
+| `.claude-plugin/marketplace.json`, `.agents/plugins/marketplace.json`, `.cursor-plugin/marketplace.json` | The marketplace manifests for Claude, OpenAI Codex, and Cursor. The Claude one is the source of truth. |
 | `.claude-plugin/README.md`, `plugins/<plugin>/.claude-plugin/README.md`, `plugins/<plugin>/skills/README.md` | Links to the official Claude Code documentation for that folder. Keep a link current when its page moves. |
 | `plugins/<plugin>/` | One plugin. Only the plugin folder installs on a user's machine. |
-| `plugins/<plugin>/.claude-plugin/plugin.json` | The plugin manifest |
+| `plugins/<plugin>/.claude-plugin/plugin.json`, `.codex-plugin/plugin.json`, `.cursor-plugin/plugin.json` | The plugin manifests for Claude, OpenAI Codex, and Cursor. Keep the name, version and description the same in all three. |
 | `plugins/<plugin>/skills/<name>/` | One folder per skill: `SKILL.md`, and optional `references/`, `scripts/`, `assets/`, `tests/` |
 | `.github/CODEOWNERS` | The required reviewer of each pull request (see `Docs/Security-And-Governance.md`) |
 | `.github/workflows/` | `pr-validation.yml`, the required checks of each pull request |
@@ -35,7 +35,7 @@ The instructions a model needs to *use* a skill are in that skill's own `SKILL.m
 - **No secrets anywhere.** No tokens, keys, or connection strings in skills, docs, scripts, or commits.
 - **Each pull request adds the next version.** One new section on top of `CHANGELOG.md`, and the same version in the `plugin.json` of every plugin. All plugins share one version. Open `.agents/rules/changelog.md` for the format and the version rule.
 - **Keep each plugin self-contained.** A user can install one plugin without the others, so a skill names only the skills of its own plugin. An Inventor skill names no tool or script helper of one MCP server. `Pipelines/Scripts/Test-SkillPortability.ps1` checks both.
-- **Validate before a PR.** From the repository root, run `claude plugin validate .` and `claude plugin validate plugins/<plugin>` for each plugin (no error and no warning in the manifests). For a skill with `scripts/`, also run `python -m unittest discover -s tests` from the skill folder. The PR validation workflow runs these checks and more on each pull request, and a pull request cannot merge until it passes.
+- **Validate before a PR.** From the repository root, run `claude plugin validate .` and `claude plugin validate plugins/<plugin>` for each plugin (no error and no warning in the manifests), and `./Pipelines/Scripts/Test-HostManifests.ps1 -SourcesDirectory .` for the Codex and Cursor manifests. For a skill with `scripts/`, also run `python -m unittest discover -s tests` from the skill folder. The PR validation workflow runs these checks and more on each pull request, and a pull request cannot merge until it passes.
 - **Write in ASD-STE100.** Use `-`, never an em dash, and `ex.` instead of `e.g.`, in all written content.
 - **The first release is 1.0.0.**
 
@@ -45,6 +45,6 @@ The rules are not loaded automatically. Before acting on a task, scan this list 
 
 - **`.agents/rules/changelog.md`** - Open before you create or update a pull request, or when editing `CHANGELOG.md` or the `version` in `plugins/<plugin>/.claude-plugin/plugin.json`.
 - **`.agents/rules/skill-authoring.md`** - Open before creating or editing anything under `plugins/<plugin>/skills/`, including `SKILL.md` frontmatter, `allowed-tools`, `references/`, or bundled scripts, or when `claude plugin validate` reports an error.
-- **`.agents/rules/plugin-manifests.md`** - Open when editing `.claude-plugin/`, `plugins/<plugin>/.claude-plugin/`, `.gitattributes`, or when adding a hook, an MCP server, a subagent, or a command to a plugin, or when adding, renaming, or removing a plugin or renaming the marketplace.
+- **`.agents/rules/plugin-manifests.md`** - Open when editing a marketplace or plugin manifest (`.claude-plugin/`, `.agents/plugins/`, `.cursor-plugin/`, `plugins/<plugin>/.codex-plugin/`), `.gitattributes`, or when adding a hook, an MCP server, a subagent, or a command to a plugin, or when adding, renaming, or removing a plugin or renaming the marketplace.
 - **`.agents/rules/documentation.md`** - Open when editing `README.md`, anything under `Docs/`, or `AGENTS.md` and `.agents/rules/` themselves.
 - **`.agents/rules/pipelines.md`** - Open when editing `.github/workflows/` or `Pipelines/`, when a check in the PR validation workflow fails, or when changing the required status check in the `main` ruleset.

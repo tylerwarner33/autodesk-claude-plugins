@@ -3,10 +3,12 @@ name: Changelog
 description: How each pull request adds a new plugin version to CHANGELOG.md and plugin.json, and the format
 triggers:
   - Before you create or update a pull request
-  - Editing CHANGELOG.md, or the version in plugins/<plugin>/.claude-plugin/plugin.json
+  - Editing CHANGELOG.md, or the version in a plugins/<plugin>/.claude-plugin/, .codex-plugin/, or .cursor-plugin/ plugin.json
 globs:
   - "CHANGELOG.md"
   - "plugins/*/.claude-plugin/plugin.json"
+  - "plugins/*/.codex-plugin/plugin.json"
+  - "plugins/*/.cursor-plugin/plugin.json"
 ---
 
 ## Why each pull request adds a version
@@ -14,7 +16,7 @@ globs:
 Each pull request is one new version of every plugin. All plugins share one version, so a user never has to compare versions across plugins. The version is in these places, and they must be the same:
 
 - The newest section of `CHANGELOG.md`, where users see what changed.
-- `"version"` in `plugins/<plugin>/.claude-plugin/plugin.json` of **every** plugin. Claude updates an installed plugin only when this value changes. A merge that does not change it reaches nobody.
+- `"version"` in `plugins/<plugin>/.claude-plugin/plugin.json`, `.codex-plugin/plugin.json` and `.cursor-plugin/plugin.json` of **every** plugin. Claude updates an installed plugin only when this value changes. A merge that does not change it reaches nobody.
 
 A plugin that did not change also gets the new version. Its users get an update with no change, which does no harm.
 
@@ -66,7 +68,7 @@ The subsections of your section decide the version. Start from the newest versio
 
 1. Find the newest version on `main`: the first `## [` heading in `CHANGELOG.md`.
 2. Write your entries in a new section on top of it. Choose the version from the table above, and use today's date.
-3. Set the same version in `"version"` in `plugins/<plugin>/.claude-plugin/plugin.json` of every plugin.
+3. Set the same version in `"version"` in the 3 manifests (`.claude-plugin/`, `.codex-plugin/`, `.cursor-plugin/`) of every plugin.
 4. After you create the pull request, add the PR link to each entry (optional).
 
 When another pull request merges first, merge the latest `main` into your branch, put your section on top of the other one, and compute your version again.

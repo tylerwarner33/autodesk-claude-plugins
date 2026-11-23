@@ -9,7 +9,7 @@ This repository is a Claude plugin marketplace (`tylerwarner-autodesk`) with one
 | `inventor-ilogic` | `inventor-ilogic` |
 | `inventor-data` | `inventor-projects-and-files` |
 
-Claude installs each plugin from the GitHub repo `tylerwarner33/autodesk-agent-skills`. A user installs only the plugins that they need.
+Claude installs each plugin from the GitHub repo `tylerwarner33/autodesk-agent-skills`. A user installs only the plugins that they need. OpenAI Codex and Cursor install the same plugins from their own manifests (see [Other hosts](#other-hosts)).
 One plugin folder works on all the Claude surfaces. Each surface loads the parts that it supports.
 
 ## Why the plugins are split by focus
@@ -24,6 +24,22 @@ One plugin folder works on all the Claude surfaces. Each surface loads the parts
 The Inventor skills name only the Inventor API, so they work with any tool that drives Inventor: an add-in, a plugin, a Design Automation app, or any Inventor MCP server.
 An MCP server keeps the steps that belong to its own tools (ex. which tool to call to check the health of a feature) in its own skills, and its instructions can point a model to these plugins.
 `Pipelines/Scripts/Test-SkillPortability.ps1` fails when an Inventor skill names a tool or a script helper of one server.
+
+## Other hosts
+
+The skills are in the [Agent Skills](https://agentskills.io) format, so OpenAI Codex and Cursor can load them too. Each host reads its own manifests, and the skill folders are shared:
+
+| Host | Marketplace | Each plugin |
+|---|---|---|
+| Claude | `.claude-plugin/marketplace.json` | `.claude-plugin/plugin.json` |
+| OpenAI Codex | `.agents/plugins/marketplace.json` | `.codex-plugin/plugin.json` |
+| Cursor | `.cursor-plugin/marketplace.json` | `.cursor-plugin/plugin.json` |
+
+- **The Claude manifests are the source of truth.** `claude plugin validate` checks them. No CLI validates the Codex or Cursor files, so `Pipelines/Scripts/Test-HostManifests.ps1` checks that the other manifests have the same plugins, names, versions and descriptions, and the fields that the host documentation requires.
+- **Codex.** The manifest takes `skills: "./skills/"` and an `interface` object (`displayName`, `shortDescription` of 30 characters or fewer, `longDescription`, `developerName`, `category`, `capabilities`, `defaultPrompt`). The Codex docs now call a root `plugin.json` the portable manifest, and `.codex-plugin/plugin.json` a compatibility fallback. This repository uses `.codex-plugin/`, as the Codex plugin scaffold does, so that the plugin root has no second `plugin.json` that a reader could take for the Claude manifest. A listing in the public Codex directory also needs icons (`composerIcon`, `logo`). The plugins have none yet.
+- **Cursor.** The manifest needs only `name`. Cursor finds the skills in `skills/`. A team adds the marketplace in the Cursor dashboard (Teams or Enterprise plan). One person can clone the repository to `~/.cursor/plugins/local/`.
+- **What does not carry over.** `renames` exists only in the Claude marketplace. `${CLAUDE_SKILL_DIR}` is a Claude placeholder: `aps-docs` already tells the model to use the path relative to `SKILL.md` when the placeholder is not replaced. `allowed-tools` applies only in Claude Code.
+- **Sources.** <https://developers.openai.com/plugins/build/plugins>, <https://cursor.com/docs/plugins>. The layout follows `dotnet/skills` and `Nice3point/revit-skills`.
 
 ## What a plugin contains
 
