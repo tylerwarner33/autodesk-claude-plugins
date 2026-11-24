@@ -48,7 +48,7 @@ same run-time errors.
 
 ## Members typed as object
 
-- `Parameter.Value` is `object`. Cast it: `(double)parameter.Value`. It is the database value (centimetres,
+- `Parameter.Value` is `object`. Cast it: `(double)parameter.Value`. It is the database value (centimeters,
   radians). `Parameter._Value` is the same number as a `double`.
 - Some definition members are `object`, ex. `RectangularPatternFeatureDefinition.XCount`. Cast them:
   `((Parameter)definition.XCount).Expression`. A direction that the pattern does not use gives the COM code

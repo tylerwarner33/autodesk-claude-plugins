@@ -2,7 +2,7 @@
 name: inventor-modeling
 description: >-
   How to write geometry in an Autodesk Inventor part or assembly through the API: named faces and the ViewCube,
-  centimetres and radians, sketch-relative feature extent direction, patterns, holes, constraints, and how to verify a
+  centimeters and radians, sketch-relative feature extent direction, patterns, holes, constraints, and how to verify a
   write against the model. Use before code creates or changes sketches, features, patterns, holes or constraints, or
   when a request names a face (ex. "the top face"), a direction, or units.
 ---
@@ -11,7 +11,7 @@ description: >-
 
 ## A named face means the ViewCube face
 
-"The top face" means the face labelled Top on the Inventor ViewCube. The ViewCube can change per document, so read it
+"The top face" means the face labeled Top on the Inventor ViewCube. The ViewCube can change per document, so read it
 before you write geometry that names a face or a direction.
 
 On an unmodified part the mapping is Top +Y, Front +Z, Right +X, so Y is up, not Z. Treat that as what to expect,
@@ -23,7 +23,7 @@ direction from `Target` to `Eye` is the outward direction of that face. Then res
 
 ## Units
 
-Inventor stores every length in centimetres and every angle in radians, whatever the document shows. A parameter
+Inventor stores every length in centimeters and every angle in radians, whatever the document shows. A parameter
 that reads "2 in" has the value 5.08.
 
 - Convert with `document.UnitsOfMeasure.ConvertUnits(value, UnitsTypeEnum.kInchLengthUnits, UnitsTypeEnum.kDatabaseLengthUnits)`.

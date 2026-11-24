@@ -6,6 +6,12 @@ All plugins share one version, which is also in `plugins/<plugin>/.claude-plugin
 The newest version is first. The format is [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and [Semantic Versioning](https://semver.org/): a `Breaking` entry bumps the major version, an `Added` entry the minor version, and other entries the patch version.
 See [.agents/rules/changelog.md](.agents/rules/changelog.md).
 
+## [3.0.1] - 2026-11-24
+
+### Changed
+- The skills `inventor-api-traps` and `inventor-modeling`, the Skill Catalog and the README use US spelling (ex. centimeters).
+- The PR validation check that an Inventor skill names no script helper of one MCP server also finds the helpers `ToMillimeters` and `FromMillimeters`, the new names in the Autodesk Inventor MCP Server 2.1.0.
+
 ## [3.0.0] - 2026-11-23
 
 ### Breaking
