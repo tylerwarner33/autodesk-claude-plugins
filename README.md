@@ -73,7 +73,7 @@ Claude loads a skill by itself when a request matches it. To start one by name, 
 |---|---|---|
 | [`aps-docs`](Docs/Skill-Catalog.md#aps-docs) | `aps-documentation` | Answer APS (Forge) questions from the live documentation: find the right API, read its pages, and give portal links. Covers Data Management, Model Derivative, Viewer, Authentication, Webhooks, ACC, BIM 360, Design Automation, and the other APS APIs. Needs Python 3.9 or later |
 | [`inventor-api-traps`](Docs/Skill-Catalog.md#inventor-api-traps) | `inventor-api` | The Inventor COM API facts that make .NET code fail: members typed as `object`, casts, members called as methods, and the causes of E_FAIL and E_INVALIDARG |
-| [`inventor-modeling`](Docs/Skill-Catalog.md#inventor-modeling) | `inventor-api` | Named faces and the ViewCube, centimetres and radians, sketch-relative extent direction, and how to verify a geometry write |
+| [`inventor-modeling`](Docs/Skill-Catalog.md#inventor-modeling) | `inventor-api` | Named faces and the ViewCube, centimeters and radians, sketch-relative extent direction, and how to verify a geometry write |
 | [`inventor-drawings`](Docs/Skill-Catalog.md#inventor-drawings) | `inventor-api` | Sheets, views, balloons and leaders, styles and templates, and images of a sheet |
 | [`inventor-ilogic`](Docs/Skill-Catalog.md#inventor-ilogic) | `inventor-ilogic` | Parameter triggers and their cost, rules off for a batch, rule text, error dialogs, and the Security Alert |
 | [`inventor-projects-and-files`](Docs/Skill-Catalog.md#inventor-projects-and-files) | `inventor-data` | Projects and library paths, Vault read-only files, saved versions, model states, Content Center, copies, and which documents to close |

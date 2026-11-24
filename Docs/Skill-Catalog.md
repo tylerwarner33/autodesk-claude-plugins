@@ -98,7 +98,7 @@ How to write geometry in a part or an assembly, and how to verify it.
 Start it by name with `/inventor-api:inventor-modeling`, or ask for a change that names a face, a direction, or units.
 
 - A named face means the ViewCube face. On an unmodified part, Y is up.
-- Inventor stores lengths in centimetres and angles in radians.
+- Inventor stores lengths in centimeters and angles in radians.
 - A feature extent direction is relative to the sketch normal. A cut in the wrong direction gives `kDriverLostHealth`, not an error.
 - After each write: update, read the feature health, and check the geometry that the write was for.
 

@@ -1,6 +1,6 @@
 {
   "name": "aps-documentation",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "displayName": "APS Documentation",
   "description": "Answers Autodesk Platform Services (APS) questions from the live APS documentation, with portal links.",
   "author": {

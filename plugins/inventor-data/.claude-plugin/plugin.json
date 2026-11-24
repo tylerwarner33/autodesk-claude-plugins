@@ -1,6 +1,6 @@
 {
   "name": "inventor-data",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "displayName": "Inventor Data",
   "description": "Autodesk Inventor projects, library paths, Vault read-only files, saved versions, model states, and copies.",
   "author": {

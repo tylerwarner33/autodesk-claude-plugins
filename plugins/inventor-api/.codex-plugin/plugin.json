@@ -1,6 +1,6 @@
 {
   "name": "inventor-api",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Autodesk Inventor API facts for code that drives Inventor: COM interop traps, modeling, and drawings.",
   "author": { "name": "tylerwarner33", "url": "https://github.com/tylerwarner33" },
   "homepage": "https://github.com/tylerwarner33/autodesk-agent-skills",
