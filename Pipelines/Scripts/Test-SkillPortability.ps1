@@ -40,8 +40,7 @@ $toolPattern = '\binventor_[a-z_]*[a-z]\b'
 $serverWords = @(
 	'FindOpenDocument', 'OpenOrReuseDocument', 'CloseDocumentsOpenedHere',
 	'ILogicAutomation', 'ILogicRuleNames', 'ILogicRuleText', 'SetILogicRuleText', 'RunILogicRule',
-	'ToInches', 'FromInches', 'ToMillimeters', 'FromMillimeters', 'ToMillimetres', 'FromMillimetres',
-	'ToDegrees', 'FromDegrees',
+	'ToInches', 'FromInches', 'ToMillimeters', 'FromMillimeters', 'ToDegrees', 'FromDegrees',
 	'TryGetUserParameter', 'InTransaction', 'ScriptDeadline', 'StartDeadline',
 	'blockingDialogs', 'blocked-by-dialog'
 )

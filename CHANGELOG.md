@@ -10,7 +10,7 @@ See [.agents/rules/changelog.md](.agents/rules/changelog.md).
 
 ### Changed
 - The skills `inventor-api-traps` and `inventor-modeling`, the Skill Catalog and the README use US spelling (ex. centimeters). ([PR #13](https://github.com/tylerwarner33/autodesk-agent-skills/pull/13))
-- The PR validation check that an Inventor skill names no script helper of one MCP server also finds the helpers `ToMillimeters` and `FromMillimeters`, the new names in the Autodesk Inventor MCP Server 2.1.0. ([PR #13](https://github.com/tylerwarner33/autodesk-agent-skills/pull/13))
+- The PR validation check that an Inventor skill names no script helper of one MCP server finds the helpers `ToMillimeters` and `FromMillimeters`, the new names in the Autodesk Inventor MCP Server 2.1.0, in place of `ToMillimetres` and `FromMillimetres`. ([PR #13](https://github.com/tylerwarner33/autodesk-agent-skills/pull/13))
 
 ## [3.0.0] - 2026-11-23
 
